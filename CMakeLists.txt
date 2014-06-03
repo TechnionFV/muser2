@@ -21,6 +21,8 @@ string(TIMESTAMP BUILDDATE "%Y-%m-%d %H:%M")
 add_definitions(-DBUILDDATE="${BUILDDATE}")
 add_definitions(-D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS)
 
+add_definitions(-DTRACEVERB=0)
+
 set (CUSTOM_BOOST_ROOT "" CACHE PATH "Path to custom boost installation.")
 if (CUSTOM_BOOST_ROOT)
   set (BOOST_ROOT ${CUSTOM_BOOST_ROOT})
