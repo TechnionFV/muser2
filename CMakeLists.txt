@@ -12,7 +12,13 @@ set(CMAKE_MODULE_PATH
   "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
   )
 
+include(GetGitRevisionDescription)
+get_git_head_revision (GIT_REFSPEC GIT_SHA1)
+message (STATUS "sha is ${GIT_SHA1}")
+add_definitions(-DCOMMITID="${GIT_SHA1}")
 
+string(TIMESTAMP BUILDDATE "%Y-%m-%d %H:%M")
+add_definitions(-DBUILDDATE="${BUILDDATE}")
 add_definitions(-D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS)
 
 set (CUSTOM_BOOST_ROOT "" CACHE PATH "Path to custom boost installation.")
@@ -39,6 +45,10 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/include
   ${CMAKE_CURRENT_BINARY_DIR}/include
   )
+
 list (APPEND CMAKE_CXX_FLAGS "-std=c++11")
+
+
 add_subdirectory (src)
+
 
