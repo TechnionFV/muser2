@@ -11,8 +11,8 @@
 //jpms:ec
 
 #include "solver_llni_factory.hh"
-#include "minisat-hmuc_llni_wrapper.hh"
-#include "picosat_llni_wrapper.hh"
+// #include "minisat-hmuc_llni_wrapper.hh"
+// #include "picosat_llni_wrapper.hh"
 
 SATSolverLowLevelNonIncrWrapper* SATSolverLLNIFactory::instance_ptr(SATSolverConfig& config) 
 {
@@ -21,9 +21,11 @@ SATSolverLowLevelNonIncrWrapper* SATSolverLLNIFactory::instance_ptr(SATSolverCon
     tool_abort("Invalid SAT solver selection in factory: must be non-incremental.");
   }
   if (config.chk_sat_solver("minisat-hmuc")) {       // SAT solver must be minisat
-    solver = (SATSolverLowLevelNonIncrWrapper*) new MinisatHMUCLowLevelNonIncrWrapper(imgr);
+    //solver = (SATSolverLowLevelNonIncrWrapper*) new MinisatHMUCLowLevelNonIncrWrapper(imgr);
+    tool_abort("Invalid SAT solver selection in factory: unsupported solver.");
   } else if (config.chk_sat_solver("picosat")) {     // or picosat
-    solver = (SATSolverLowLevelNonIncrWrapper*) new PicosatLowLevelNonIncrWrapper(imgr);
+    //solver = (SATSolverLowLevelNonIncrWrapper*) new PicosatLowLevelNonIncrWrapper(imgr);
+    tool_abort("Invalid SAT solver selection in factory: unsupported solver.");
   } else {
     tool_abort("Invalid SAT solver selection in factory: unsupported solver.");
   }

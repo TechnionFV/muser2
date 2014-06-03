@@ -11,13 +11,14 @@
 //jpms:ec
 
 #include "solver_sls_factory.hh"
-#include "ubcsat12_sls_wrapper.hh"
+// #include "ubcsat12_sls_wrapper.hh"
 
 SATSolverSLSWrapper* SATSolverSLSFactory::instance_ptr(SATSolverConfig& config) 
 {
   if (solver != NULL) { return solver; }
   // TODO:  use configuration to select a solver
-  solver = (SATSolverSLSWrapper*) new Ubcsat12SLSWrapper(imgr);
+  //solver = (SATSolverSLSWrapper*) new Ubcsat12SLSWrapper(imgr);
+  solver = NULL;
   assert(solver != NULL);
   solver->set_verbosity(config.get_verbosity());
   return solver;
