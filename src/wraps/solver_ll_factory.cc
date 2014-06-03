@@ -11,7 +11,7 @@
 //jpms:ec
 
 #include "solver_ll_factory.hh"
-// #include "minisat22_ll_wrapper_incr.hh"
+#include "minisat22_ll_wrapper_incr.hh"
 // #include "minisat-hmuc_ll_wrapper.hh"
 // #include "picosat_ll_wrapper.hh"
 // #include "minisat-abbr_ll_wrapper.hh"
@@ -29,8 +29,8 @@ SATSolverLowLevelWrapper* SATSolverLLFactory::instance_ptr(SATSolverConfig& conf
     
   if (config.chk_sat_solver("minisat-gh")) {
     solver = (SATSolverLowLevelWrapper*) new MinisatGHLowLevelWrapper(imgr);
-  // } else if (config.chk_sat_solver("minisat")) {
-  //   solver = (SATSolverLowLevelWrapper*) new Minisat22LowLevelWrapper(imgr);
+  } else if (config.chk_sat_solver("minisat")) {
+     solver = (SATSolverLowLevelWrapper*) new Minisat22LowLevelWrapper(imgr);
   // } else if (config.chk_sat_solver("minisats")) {
   //   solver = (SATSolverLowLevelWrapper*) new Minisat22sLowLevelWrapper(imgr);
   // } else if (config.chk_sat_solver("minisat-hmuc")) {
