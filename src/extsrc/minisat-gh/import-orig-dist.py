@@ -21,7 +21,7 @@ smap = {
     'Minisat::' : 'MinisatGH::',                 # namespace
     '#ifndef Minisat_' : '#ifndef MinisatGH_',   # includes
     '#define Minisat_' : '#define MinisatGH_',   # includes
-    '#include "minisat/' : '#include "../minisat-gh/', #includes
+    '#include "minisat/' : '#include "../', #includes
     '"PRI' : '" PRI'                             # format macros
 }
 
