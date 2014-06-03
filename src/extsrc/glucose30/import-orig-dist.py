@@ -18,7 +18,7 @@ import fileinput
 
 # substitutions map
 smap = {
-    '#include "' : '#include "../glucose30/', #includes
+    '#include "' : '#include "../', #includes
     '"PRI' : '" PRI'                          # format macros
 }
 
