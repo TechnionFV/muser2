@@ -1,0 +1,1 @@
+add_library (minisat_gh_simp OBJECT SimpSolver.cc)

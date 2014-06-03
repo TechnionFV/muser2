@@ -1,0 +1,1 @@
+add_library (clset STATIC cl_id_manager.cc cl_registry.cc)

@@ -1,0 +1,1 @@
+add_library(minisat_gh_utils OBJECT System.cc Options.cc)

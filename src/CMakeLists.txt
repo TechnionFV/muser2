@@ -1,0 +1,16 @@
+include_directories (include)
+include_directories (idman)
+include_directories (clset)
+add_subdirectory(clset)
+add_subdirectory(extsrc)
+add_subdirectory(wraps)
+include_directories(wraps)
+include_directories(mus-2)
+add_subdirectory(wraps-2)
+
+include_directories(wraps-2)
+include_directories(extsrc/minisat22)
+add_subdirectory(mus-2)
+
+include_directories(parse/cnffmt parse/gcnffmt parse/vgcnffmt)
+add_subdirectory(tools/muser2)
