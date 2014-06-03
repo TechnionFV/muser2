@@ -23,8 +23,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 #include <stdio.h>
 
-#include "../minisat-gh/utils/ParseUtils.h"
-#include "../minisat-gh/core/SolverTypes.h"
+#include "../utils/ParseUtils.h"
+#include "../core/SolverTypes.h"
 
 namespace MinisatGH {
 

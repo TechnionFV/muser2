@@ -21,8 +21,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef MinisatGH_Heap_h
 #define MinisatGH_Heap_h
 
-#include "../minisat-gh/mtl/Vec.h"
-#include "../minisat-gh/mtl/IntMap.h"
+#include "../mtl/Vec.h"
+#include "../mtl/IntMap.h"
 
 namespace MinisatGH {
 

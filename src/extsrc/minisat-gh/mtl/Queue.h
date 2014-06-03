@@ -21,7 +21,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef MinisatGH_Queue_h
 #define MinisatGH_Queue_h
 
-#include "../minisat-gh/mtl/Vec.h"
+#include "../mtl/Vec.h"
 
 namespace MinisatGH {
 

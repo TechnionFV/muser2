@@ -25,9 +25,9 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include <math.h>
 #include <string.h>
 
-#include "../minisat-gh/mtl/IntTypes.h"
-#include "../minisat-gh/mtl/Vec.h"
-#include "../minisat-gh/utils/ParseUtils.h"
+#include "../mtl/IntTypes.h"
+#include "../mtl/Vec.h"
+#include "../utils/ParseUtils.h"
 
 namespace MinisatGH {
 

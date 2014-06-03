@@ -20,8 +20,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef MinisatGH_Map_h
 #define MinisatGH_Map_h
 
-#include "../minisat-gh/mtl/IntTypes.h"
-#include "../minisat-gh/mtl/Vec.h"
+#include "../mtl/IntTypes.h"
+#include "../mtl/Vec.h"
 
 namespace MinisatGH {
 static inline uint32_t hash(uint32_t x){ return x; }
