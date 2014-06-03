@@ -24,8 +24,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include <assert.h>
 #include <new>
 
-#include "../glucose30/mtl/IntTypes.h"
-#include "../glucose30/mtl/XAlloc.h"
+#include "../mtl/IntTypes.h"
+#include "../mtl/XAlloc.h"
 
 namespace Glucose {
 

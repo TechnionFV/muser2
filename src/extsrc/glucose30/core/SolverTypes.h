@@ -32,11 +32,11 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 #include <assert.h>
 
-#include "../glucose30/mtl/IntTypes.h"
-#include "../glucose30/mtl/Alg.h"
-#include "../glucose30/mtl/Vec.h"
-#include "../glucose30/mtl/Map.h"
-#include "../glucose30/mtl/Alloc.h"
+#include "../mtl/IntTypes.h"
+#include "../mtl/Alg.h"
+#include "../mtl/Vec.h"
+#include "../mtl/Map.h"
+#include "../mtl/Alloc.h"
 
 namespace Glucose {
 

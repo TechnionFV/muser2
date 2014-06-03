@@ -29,13 +29,13 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef Glucose_Solver_h
 #define Glucose_Solver_h
 
-#include "../glucose30/mtl/Vec.h"
-#include "../glucose30/mtl/Heap.h"
-#include "../glucose30/mtl/Alg.h"
-#include "../glucose30/utils/Options.h"
-#include "../glucose30/core/SolverTypes.h"
-#include "../glucose30/core/BoundedQueue.h"
-#include "../glucose30/core/Constants.h"
+#include "../mtl/Vec.h"
+#include "../mtl/Heap.h"
+#include "../mtl/Alg.h"
+#include "../utils/Options.h"
+#include "../core/SolverTypes.h"
+#include "../core/BoundedQueue.h"
+#include "../core/Constants.h"
 
 
 namespace Glucose {

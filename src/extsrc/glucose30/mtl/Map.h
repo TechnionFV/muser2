@@ -20,8 +20,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef Glucose_Map_h
 #define Glucose_Map_h
 
-#include "../glucose30/mtl/IntTypes.h"
-#include "../glucose30/mtl/Vec.h"
+#include "../mtl/IntTypes.h"
+#include "../mtl/Vec.h"
 
 namespace Glucose {
 static inline uint32_t hash(uint32_t x){ return x; }

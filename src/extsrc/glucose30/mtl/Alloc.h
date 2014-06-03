@@ -21,8 +21,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef Glucose_Alloc_h
 #define Glucose_Alloc_h
 
-#include "../glucose30/mtl/XAlloc.h"
-#include "../glucose30/mtl/Vec.h"
+#include "../mtl/XAlloc.h"
+#include "../mtl/Vec.h"
 
 namespace Glucose {
 
