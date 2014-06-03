@@ -15,7 +15,7 @@
 #ifndef _SIMPLIFY_VE_HH
 #define _SIMPLIFY_VE_HH 1
 
-#include <ext/hash_map>
+//#include <ext/hash_map>
 #include <vector>
 #include "mus_data.hh"
 #include "work_item.hh"
@@ -79,7 +79,7 @@ public:     // Results
             unsigned cc = 0)
       : r1(rr1), r2(rr2), v(vv), count(cc) {}
   };
-  typedef __gnu_cxx::hash_map<BasicClause*, ResData, ClPtrHash, ClPtrEqual> DerivData;
+  typedef hash_map<BasicClause*, ResData, ClPtrHash, ClPtrEqual> DerivData;
   /* Returns the instance of the derivation data */
   const DerivData& dd(void) const { return _dd; }
   DerivData& dd(void) { return _dd; }

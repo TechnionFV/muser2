@@ -17,9 +17,9 @@
 #ifndef _BCE_SIMPLIFIER_HH
 #define _BCE_SIMPLIFIER_HH 1
 
-#include <ext/hash_map>
-#include "basic_clset.hh"
+//#include <ext/hash_map>
 #include "simplify_bce.hh"
+#include "basic_clset.hh"
 #include "worker.hh"
 
 /*----------------------------------------------------------------------------*\

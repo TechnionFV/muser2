@@ -19,8 +19,8 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
-#include "basic_group_set.hh"
 #include "check_vgroup_status.hh"
+#include "basic_group_set.hh"
 #include "mus_extraction_alg.hh"
 #include "rotate_model.hh"
 

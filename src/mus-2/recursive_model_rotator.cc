@@ -19,18 +19,18 @@
 #endif
 
 #include <cassert>
-#include <ext/hash_set>
+//#include <ext/hash_set>
 #include <unordered_map>
 #include <iostream>
 #include <list>
 #include <queue>
+#include "model_rotator.hh"
 #include "basic_group_set.hh"
 #include "types.hh"
-#include "model_rotator.hh"
 #include "utils.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 

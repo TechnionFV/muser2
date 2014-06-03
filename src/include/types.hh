@@ -173,12 +173,22 @@ struct eqint {
 #include <list>
 #include <map>
 #include <set>
-#include <ext/slist>          // Location of STL list extensions
-#include <ext/hash_map>       // Location of STL hash extensions
-#include <ext/hash_set>       // Location of STL hash extensions
+//#include <ext/slist>          // Location of STL list extensions
+//#include <ext/hash_map>       // Location of STL hash extensions
+//#include <ext/hash_set>       // Location of STL hash extensions
+
+#include <unordered_map>
+#include <unordered_set>
+
+#define hash_map std::unordered_map
+#define hash_set std::unordered_set
+#define hash_multimap std::unordered_multimap
+
+#include <forward_list>
+#define slist std::forward_list
 
 using namespace std;
-using namespace __gnu_cxx;    // Required for STL hash extensions
+//using namespace __gnu_cxx;    // Required for STL hash extensions
 
 
 #ifdef USE_RBTREE_SETS
@@ -243,7 +253,7 @@ public:
       //DBG(
       cout<<"Resizing a ""T"" set "<<endl;
       //);
-      this->resize(8*(sz+((sz==0)?1:0))+1); }
+      this->rehash(8*(sz+((sz==0)?1:0))+1); }
     hash_set<T,H,E>::insert(v); }
   void dump(ostream& outs=std::cout) {
     typename StdSet<T,H,E>::iterator npos = this->begin();

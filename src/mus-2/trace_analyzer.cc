@@ -15,7 +15,7 @@
 #include <limits>
 
 using namespace std;
-using namespace __gnu_cxx; // <-- for hash_map
+//using namespace __gnu_cxx; // <-- for hash_map
 
 //#define DBG(x) x
 #define DBG(x) 

@@ -15,8 +15,8 @@
 #ifndef _SAT_CHECKER_HH
 #define _SAT_CHECKER_HH
 
-#include "basic_group_set.hh"
 #include "check_group_status.hh"
+#include "basic_group_set.hh"
 #include "check_group_status_chunk.hh"
 #include "check_range_status.hh"
 #include "check_subset_status.hh"

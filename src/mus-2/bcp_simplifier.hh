@@ -17,7 +17,7 @@
 #ifndef _BCP_SIMPLIFIER_HH
 #define _BCP_SIMPLIFIER_HH 1
 
-#include <ext/hash_map>
+//#include <ext/hash_map>
 #include "simplify_bcp.hh"
 #include "worker.hh"
 

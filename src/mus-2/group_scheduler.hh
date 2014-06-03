@@ -11,8 +11,8 @@
 #ifndef _GROUP_SCHEDULER_HH
 #define _GROUP_SCHEDULER_HH
 
-#include "basic_group_set.hh"
 #include "mus_data.hh"
+#include "basic_group_set.hh"
 
 /*----------------------------------------------------------------------------*\
  * Class:  GroupScheduler

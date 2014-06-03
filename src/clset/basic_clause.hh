@@ -15,6 +15,7 @@
 #ifndef _BASIC_CLAUSE_H
 #define _BASIC_CLAUSE_H 1
 
+#include <algorithm> // std::adjacent_find
 #include "globals.hh"
 #include "cl_id_manager.hh"
 
@@ -55,7 +56,7 @@ protected:
       grp_id(gid_Undef)
     , _aend(clits.end()), _asize(clits.size()), _abstr(calculate_abstr())
   {
-    assert(adjacent_find(lits.begin(),lits.end(),AbsLitGreater())==lits.end());
+    assert(std::adjacent_find(lits.begin(),lits.end(),AbsLitGreater())==lits.end());
     //sort_lits();
     NDBG(cout << "Creating clause: [" << *this << "]" << endl;);
   }

@@ -10,8 +10,8 @@
  *                                          Copyright (c) 2011-2012, Anton Belov
 \*----------------------------------------------------------------------------*/
 
-#include "basic_group_set.hh"
 #include "group_scheduler.hh"
+#include "basic_group_set.hh"
 #include "id_manager.hh"
 #include "length_scheduler.hh"
 #include "length_vscheduler.hh"

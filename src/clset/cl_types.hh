@@ -19,7 +19,6 @@
 #include "basic_clause.hh"
 #include "cl_functors.hh"
 
-
 typedef enum ClTypes {
   CL_HARD = 0x10,
   CL_SOFT = 0x20,

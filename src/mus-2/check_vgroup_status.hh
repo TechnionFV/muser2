@@ -12,8 +12,8 @@
 #ifndef _CHECK_VGROUP_STATUS_H
 #define _CHECK_VGROUP_STATUS_H 1
 
-#include "basic_group_set.hh"
 #include "mus_data.hh"
+#include "basic_group_set.hh"
 #include "types.hh"
 #include "work_item.hh"
 

@@ -11,16 +11,16 @@
  *                                              Copyright (c) 2011, Anton Belov
 \*----------------------------------------------------------------------------*/
 
-#include <ext/hash_set>
+//#include <ext/hash_set>
 #include <iostream>
 #include <list>
 #include "mtl/mheap.hh"           // minisat's heap
-#include "basic_group_set.hh"
 #include "bce_simplifier.hh"
+#include "basic_group_set.hh"
 #include "types.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 

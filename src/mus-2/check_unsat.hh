@@ -12,8 +12,8 @@
 #ifndef _CHECK_UNSAT_HH
 #define _CHECK_UNSAT_HH 1
 
-#include "basic_group_set.hh"
 #include "mus_data.hh"
+#include "basic_group_set.hh"
 #include "work_item.hh"
 
 /*----------------------------------------------------------------------------*\

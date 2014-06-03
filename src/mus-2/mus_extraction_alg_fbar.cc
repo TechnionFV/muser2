@@ -16,8 +16,8 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
-#include "basic_group_set.hh"
 #include "mus_extraction_alg_fbar.hh"
+#include "basic_group_set.hh"
 #include "rgraph_utils.hh"
 #include "utils.hh"
 

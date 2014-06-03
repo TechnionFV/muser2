@@ -52,7 +52,7 @@
 #ifndef _BASIC_GROUP_SET_H
 #define _BASIC_GROUP_SET_H 1
 
-#include <ext/hash_map>       // Location of STL hash extensions
+//#include <ext/hash_map>       // Location of STL hash extensions
 #include <iostream>
 #include <iterator>
 #include <list>
@@ -74,7 +74,7 @@
 typedef std::map<GID, BasicClauseVector> GID2ClVMap;
 
 /** Group ID to integer map (e.g. for indicators) */
-typedef __gnu_cxx::hash_map<GID, LINT, IntHash, IntEqual> GID2IntMap;
+typedef hash_map<GID, LINT, IntHash, IntEqual> GID2IntMap;
 
 /** Vector of GIDs and related iterators 
  */
@@ -112,7 +112,7 @@ public:
 
 /** Hash set of GIDs and related iterators 
  */
-typedef __gnu_cxx::hash_set<GID, IntHash, IntEqual> GIDHSet;
+typedef hash_set<GID, IntHash, IntEqual> GIDHSet;
 typedef GIDHSet::iterator GIDHSetIterator;
 typedef GIDHSet::const_iterator GIDHSetCIterator;
 // output

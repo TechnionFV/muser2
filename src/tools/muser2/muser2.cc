@@ -17,8 +17,8 @@
 #include <stack>
 #include <unistd.h>
 
-#include "basic_group_set.hh"
 #include "bce_simplifier.hh"
+#include "basic_group_set.hh"
 #include "bcp_simplifier.hh"
 #include "ve_simplifier.hh"
 #include "cnffmt.hh"

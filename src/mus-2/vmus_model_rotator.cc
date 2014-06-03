@@ -20,16 +20,16 @@
 #endif
 
 #include <cassert>
-#include <ext/hash_set>
+//#include <ext/hash_set>
 #include <iostream>
 #include <list>
 #include <queue>
+#include "model_rotator.hh"
 #include "basic_group_set.hh"
 #include "types.hh"
-#include "model_rotator.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 //#define CHK(x) x
@@ -136,7 +136,7 @@ bool VMUSModelRotator::process(RotateModel& rm)
 
     // now, any variable group that appears in *all* false clauses is necessary; 
     // this of course includes vgid itself
-    typedef __gnu_cxx::hash_map<GID, HashedClauseSet, IntHash, IntEqual> GIDClSetMap;
+    typedef hash_map<GID, HashedClauseSet, IntHash, IntEqual> GIDClSetMap;
     GIDClSetMap f_vgids; // key = VGID, value = set of false clauses that have a
                          // variable from VGID
     for (HashedClauseSet::iterator pcl = f_clauses.begin(); 

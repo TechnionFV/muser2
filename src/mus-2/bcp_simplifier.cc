@@ -19,12 +19,12 @@
 #include <queue>
 #include <vector>
 #include "mtl/queue.hh"           // minisat's queue
-#include "basic_group_set.hh"
 #include "bcp_simplifier.hh"
+#include "basic_group_set.hh"
 #include "types.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 

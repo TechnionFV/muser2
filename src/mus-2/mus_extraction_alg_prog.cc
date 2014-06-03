@@ -17,8 +17,8 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
-#include "basic_group_set.hh"
 #include "mus_extraction_alg_prog.hh"
+#include "basic_group_set.hh"
 #include "utils.hh"
 
 using namespace std;

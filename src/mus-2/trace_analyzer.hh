@@ -2,8 +2,11 @@
 // trace_analyzer.hh -- the interface for resolution proof analysis functionality
 //
 
-#include <ext/hash_map>
-#include <ext/hash_set>
+// #include <ext/hash_map>
+// #include <ext/hash_set>
+
+#include "types.hh"
+
 
 struct nodeClause;
 
@@ -14,9 +17,9 @@ public:
 	TraceAnalyzer();
 
 	/* The type for map from picosat clause IDs to path counts */
-	typedef __gnu_cxx::hash_map<int, double> PathCountMap;
+	typedef hash_map<int, double> PathCountMap;
 	/* The type for set of picosat clause IDs */
-	typedef __gnu_cxx::hash_set<int> ClauseSet;
+	typedef hash_set<int> ClauseSet;
 
 	/* Set the stream from which the trace is to be read */
 	void set_trace_stream(FILE* t_stream);

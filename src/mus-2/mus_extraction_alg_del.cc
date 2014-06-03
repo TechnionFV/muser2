@@ -24,8 +24,8 @@
 #include <tbb/tbb_thread.h>
 //#include <tbb/compat/thread>
 #endif
-#include "basic_group_set.hh"
 #include "mus_extraction_alg.hh"
+#include "basic_group_set.hh"
 
 namespace {
 

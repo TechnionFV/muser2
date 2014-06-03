@@ -13,12 +13,12 @@
 #ifndef _MODEL_ROTATOR_HH
 #define _MODEL_ROTATOR_HH 1
 
-#include <ext/hash_map>
+//#include <ext/hash_map>
 #include <unordered_set>
 #include <unordered_map>
+#include "mus_data.hh"
 #include "basic_clset.hh"
 #include "basic_group_set.hh"
-#include "mus_data.hh"
 #include "mus_config.hh"
 #include "rotate_model.hh"
 #include "solver_wrapper.hh"

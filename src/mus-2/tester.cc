@@ -19,8 +19,8 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-#include "basic_group_set.hh"
 #include "check_unsat.hh"
+#include "basic_group_set.hh"
 #include "compute_mus.hh"
 #include "mus_data.hh"
 #include "mus_extractor.hh"

@@ -16,14 +16,14 @@
 #include <iostream>
 #include <sstream>
 #include <queue>
+#include "mus_extraction_alg.hh"
 #include "basic_group_set.hh"
 #include "id_manager.hh"
-#include "mus_extraction_alg.hh"
 #include "solver_wrapper.hh"
 #include "solver_factory.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 

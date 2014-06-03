@@ -15,18 +15,18 @@
 
 #include <cassert>
 #include <cstdint>
-#include <ext/hash_set>
+//#include <ext/hash_set>
 #include <iostream>
 #include <list>
 #include <queue>
 #include <unordered_set>
+#include "model_rotator.hh"
 #include "basic_group_set.hh"
 #include "types.hh"
-#include "model_rotator.hh"
 #include "utils.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 //#define CHK(x) x

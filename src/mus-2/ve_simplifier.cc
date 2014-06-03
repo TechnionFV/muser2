@@ -24,12 +24,12 @@
 #include <vector>
 #include "mtl/mheap.hh"         // minisat's heap
 #include "mtl/queue.hh"         // minisat's queue
-#include "basic_group_set.hh"
 #include "ve_simplifier.hh"
+#include "basic_group_set.hh"
 #include "types.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 

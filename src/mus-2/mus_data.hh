@@ -23,9 +23,9 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include "res_graph.hh"
 #include "globals.hh"
 #include "basic_group_set.hh"
-#include "res_graph.hh"
 
 /*----------------------------------------------------------------------------*\
  * Class: MUSData

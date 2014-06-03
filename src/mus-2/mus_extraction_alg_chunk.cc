@@ -23,11 +23,11 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
-#include "basic_group_set.hh"
 #include "mus_extraction_alg.hh"
+#include "basic_group_set.hh"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 
 //#define DBG(x) x
 
