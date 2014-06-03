@@ -1,1 +1,0 @@
-add_library(minisat_gh_core OBJECT Solver.cc)
