@@ -29,9 +29,12 @@ if (CUSTOM_BOOST_ROOT)
   set (Boost_NO_SYSTEM_PATHS "ON")
 endif()
 set (Boost_USE_STATIC_LIBS ON)
+find_package (Boost 1.46.1 REQUIRED)
 IF (Boost_FOUND)
   include_directories (${Boost_INCLUDE_DIRS})
 endif ()
+
+find_package(ZLIB REQUIRED)
 
 # prefer linking with static libraries
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ${CMAKE_FIND_LIBRARY_SUFFIXES})
