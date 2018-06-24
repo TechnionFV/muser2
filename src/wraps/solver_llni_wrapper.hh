@@ -17,7 +17,7 @@
 #include "id_manager.hh"
 #include "basic_clset.hh"
 #include "solver_utils.hh"
-
+#include <functional>
 using namespace SolverUtils;
 
 class SATSolverLLNIFactory;
