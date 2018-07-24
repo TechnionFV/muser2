@@ -15,3 +15,6 @@ add_subdirectory(mus-2)
 
 include_directories(parse/cnffmt parse/gcnffmt parse/vgcnffmt)
 add_subdirectory(tools/muser2)
+
+include_directories(api)
+add_subdirectory(api)
