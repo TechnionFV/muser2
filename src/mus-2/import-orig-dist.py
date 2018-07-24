@@ -18,16 +18,18 @@ import fileinput
 
 # substitutions map
 smap = {
-    'namespace muser_Minisat' : 'namespace muser_Minisat',  #change namespace
-    'namespace muser_Glucose' : 'namespace muser_Glucose',  #change namespace
-    'muser_Glucose::' : 'muser_muser_Glucose::', #change function calls
-    'muser_Minisat::' : 'muser_muser_Minisat::' #change function calls
+    'namespace Minisat' : 'namespace muser_Minisat',  #change namespace
+    'namespace Glucose' : 'namespace muser_Glucose',  #change namespace
+    'Glucose::' : 'muser_Glucose::', #change function calls
+    'Minisat::' : 'muser_Minisat::' #change function calls
 }
 
 # 1. modify files
 print("Making global modifications ...")
 for f in glob.glob('*.*'):
     print("  "+f)
+    if 'import-orig-dist' in f :
+    	continue
     for line in fileinput.input(f, inplace=True):
         for (s1,s2) in smap.iteritems():
             line = line.replace(s1, s2)
