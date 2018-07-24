@@ -99,7 +99,7 @@ for d in subdirs:
         print("  "+f)
         for (s1,s2) in wmap.iteritems():
                 inside=False
-		matchFound=False
+                matchFound=False
                 count=0
                 for line in fileinput.input(f, inplace=True):
                         if s1 in line and not inside:
@@ -110,10 +110,10 @@ for d in subdirs:
                         if inside and "}" in line and not line.lstrip().startswith('//'):
                             count=count-line.count("}")
                             if count==0:
-				print(line)
-				matchFound=True
+                                print(line)
+                                matchFound=True
                                 print("}",end='')
                                 inside=False
-			if not matchFound:
-				print(line, end='')
-			matchFound=False
+                        if not matchFound:
+                            print(line, end='')
+                        matchFound=False
