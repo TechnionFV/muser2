@@ -18,13 +18,11 @@ import fileinput
 
 # substitutions map
 smap = {
-    'namespace Minisat' : 'namespace muser_Minisat',  #change namespace
-    'Minisat::' : 'muser_Minisat::',  #change function calls
-    'sort(learnts, reduceDB_lt(ca));' : 'sort(learnts, muser_Minisat::reduceDB_lt(ca));' #correct function call
+    'sort(learnts, reduceDB_lt(ca));' : 'sort(learnts, MinisatAbbr::reduceDB_lt(ca));' #correct function call
 }
 # wrapper map
 wmap = {
-    'struct reduceDB_lt' : 'namespace muser_Minisat'
+    'struct reduceDB_lt' : 'namespace MinisatAbbr'
 }
 # list of subdirectories
 subdirs = [ 'core', 'simp', 'utils', 'mtl', 'incr' ]

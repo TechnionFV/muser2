@@ -689,6 +689,7 @@ CRef Solver::propagate()
 |    Remove half of the learnt clauses, minus the clauses locked by the current assignment. Locked
 |    clauses are clauses that are reason to some assignment. Binary clauses are never removed.
 |________________________________________________________________________________________________@*/
+namespace MinisatAbbr {
 struct reduceDB_lt { 
     ClauseAllocator& ca;
     reduceDB_lt(ClauseAllocator& ca_) : ca(ca_) {}
@@ -697,12 +698,13 @@ struct reduceDB_lt {
     return ca[x].size() > 2 && (ca[y].size() == 2 || ca[x].activity() < ca[y].activity()); 
   } 
 };
-void Solver::reduceDB()
+
+}void Solver::reduceDB()
 {
   int     i, j;
   double  extra_lim = cla_inc / learnts.size();    // Remove any clause below this activity
 
-  sort(learnts, reduceDB_lt(ca));
+  sort(learnts, MinisatAbbr::reduceDB_lt(ca));
   // Don't delete binary or locked clauses. From the rest, delete clauses from the first half
   // and clauses with activity smaller than 'extra_lim':
 

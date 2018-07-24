@@ -25,6 +25,11 @@ smap = {
     '"PRI' : '" PRI'                             # format macros
 }
 
+# wrapper map
+wmap = {
+     'struct reduceDB_lt' : 'namespace MinisatGH'
+}
+
 # original source root
 orig_root = 'orig-dist/minisat/'
 
@@ -86,3 +91,28 @@ for line in fileinput.input('core/SolverTypes.h', inplace=True):
         done = True
     print(line,end='')
 
+# 7. wrapping things in namespaces
+print("wrapping in namespaces")
+for d in subdirs:
+    for f in glob.glob(d + '/*.*'):
+        print("  "+f)
+        for (s1,s2) in wmap.iteritems():
+                inside=False
+                matchFound=False
+                count=0
+                for line in fileinput.input(f, inplace=True):
+                        if s1 in line and not inside:
+                            inside=True
+                            print(s2+" {",end='\n')
+                        if inside and "{" in line and not line.lstrip().startswith('//'):
+                            count=count+line.count("{")
+                        if inside and "}" in line and not line.lstrip().startswith('//'):
+                            count=count-line.count("}")
+                            if count==0:
+                                print(line)
+                                matchFound=True
+                                print("}",end='')
+                                inside=False
+                        if not matchFound:
+                            print(line, end='')
+                        matchFound=False
