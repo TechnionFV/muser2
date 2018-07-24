@@ -78,8 +78,8 @@ static DoubleOption  opt_restart_inc       (_cat, "rinc",        "Restart interv
 static DoubleOption  opt_garbage_frac      (_cat, "gc-frac",     "The fraction of wasted memory allowed before a garbage collection is triggered",  0.20, DoubleRange(0, false, HUGE_VAL, false));
 
 
- BoolOption    opt_certified      (_certified, "certified",    "Certified UNSAT using DRUP format", false);
- StringOption    opt_certified_file      (_certified, "certified-output",    "Certified UNSAT output file", "NULL");
+static BoolOption    opt_certified      (_certified, "certified",    "Certified UNSAT using DRUP format", false);
+static StringOption    opt_certified_file      (_certified, "certified-output",    "Certified UNSAT output file", "NULL");
 
 
 //=================================================================================================
