@@ -20,7 +20,13 @@ import fileinput
 smap = {
     '#include "' : '#include "../', #includes
     '"PRI' : '" PRI',                          # format macros
-    'namespace Glucose' : 'namespace muser_Glucose'  #change namespace
+    'namespace Glucose' : 'namespace muser_Glucose',  #change namespace
+    'sort(learnts, reduceDB_lt(ca));' : 'sort(learnts, muser_Glucose::reduceDB_lt(ca));' #correct function call
+}
+
+# wrapper map
+wmap = {
+     'struct reduceDB_lt' : 'namespace muser_Glucose'
 }
 
 # original source root
@@ -85,3 +91,28 @@ for line in fileinput.input('core/Solver.cc', inplace=True):
     if line.startswith('using namespace muser_Glucose'):
         print('#pragma GCC diagnostic ignored "-Wsign-compare"')
 
+# 7. wrapping things in namespaces
+print("wrapping in namespaces")
+for d in subdirs:
+    for f in glob.glob(d + '/*.*'):
+        print("  "+f)
+        for (s1,s2) in wmap.iteritems():
+                inside=False
+		matchFound=False
+                count=0
+                for line in fileinput.input(f, inplace=True):
+                        if s1 in line and not inside:
+                            inside=True
+                            print(s2+" {",end='\n')
+                        if inside and "{" in line and not line.lstrip().startswith('//'):
+                            count=count+line.count("{")
+                        if inside and "}" in line and not line.lstrip().startswith('//'):
+                            count=count-line.count("}")
+                            if count==0:
+				print(line)
+				matchFound=True
+                                print("}",end='')
+                                inside=False
+			if not matchFound:
+				print(line, end='')
+			matchFound=False

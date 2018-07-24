@@ -897,6 +897,7 @@ CRef Solver::propagate()
 |    Remove half of the learnt clauses, minus the clauses locked by the current assignment. Locked
 |    clauses are clauses that are reason to some assignment. Binary clauses are never removed.
 |________________________________________________________________________________________________@*/
+namespace muser_Glucose {
 struct reduceDB_lt { 
     ClauseAllocator& ca;
     reduceDB_lt(ClauseAllocator& ca_) : ca(ca_) {}
@@ -921,12 +922,13 @@ struct reduceDB_lt {
     }    
 };
 
+}
 void Solver::reduceDB()
 {
  
   int     i, j;
   nbReduceDB++;
-  sort(learnts, reduceDB_lt(ca));
+  sort(learnts, muser_Glucose::reduceDB_lt(ca));
 
   // We have a lot of "good" clauses, it is difficult to compare them. Keep more !
   if(ca[learnts[learnts.size() / RATIOREMOVECLAUSES]].lbd()<=3) nbclausesbeforereduce +=specialIncReduceDB; 
