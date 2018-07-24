@@ -23,7 +23,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "../mtl/IntTypes.h"
 #include "../mtl/Vec.h"
 
-namespace Glucose {
+namespace muser_Glucose {
 static inline uint32_t hash(uint32_t x){ return x; }
 static inline uint32_t hash(uint64_t x){ return (uint32_t)x; }
 static inline uint32_t hash(int32_t x) { return (uint32_t)x; }

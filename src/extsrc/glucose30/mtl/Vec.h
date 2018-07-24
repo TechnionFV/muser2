@@ -27,7 +27,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "../mtl/IntTypes.h"
 #include "../mtl/XAlloc.h"
 
-namespace Glucose {
+namespace muser_Glucose {
 
 //=================================================================================================
 // Automatically resizable arrays
