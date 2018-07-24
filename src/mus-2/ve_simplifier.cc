@@ -78,7 +78,7 @@ namespace {
       const OccsList& _o_list;
     };
 
-    Minisat::Heap<VarOrder> _heap;      // *mutable* heap
+    muser_Minisat::Heap<VarOrder> _heap;      // *mutable* heap
 
   public:   
 

@@ -13,7 +13,7 @@
 #include "globals.hh"
 #include "glucose30_ll_wrapper.hh"
 
-using namespace Glucose;
+using namespace muser_Glucose;
 
 //#define DBG(x) x
 

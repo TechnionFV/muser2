@@ -13,7 +13,7 @@
 #include "globals.hh"
 #include "minisat-hmuc_ll_wrapper.hh"
 
-using namespace MinisatHMUC;
+using namespace muser_MinisatHMUC;
 
 //#define DBG(x) x
 

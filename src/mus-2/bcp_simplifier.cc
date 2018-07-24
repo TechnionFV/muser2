@@ -43,7 +43,7 @@ namespace {
     /* Size */
     size_t size(void) { return _queue.size(); }
   private:      
-    Minisat::Queue<LINT> _queue;       // TODO: try STL also
+    muser_Minisat::Queue<LINT> _queue;       // TODO: try STL also
   };
 
   /* True is the literal and the value is in conflict */

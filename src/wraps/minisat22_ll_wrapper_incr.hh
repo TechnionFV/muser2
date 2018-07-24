@@ -19,7 +19,7 @@
 #include "simp_solver.hh"
 #include "solver_ll_wrapper.hh"
 
-//using namespace Minisat;
+//using namespace muser_Minisat;
 
 class SATSolverLLFactory;
 
@@ -29,8 +29,8 @@ class SATSolverLLFactory;
  *
  * Purpose: Provides low-level incremental interface to Minisat22.
  *
- * Note: Template parameter can be instantiated with either Minisat::Solver or
- * Minisat::SimpSolver (and nothing else; if you need something else, add the
+ * Note: Template parameter can be instantiated with either muser_Minisat::Solver or
+ * muser_Minisat::SimpSolver (and nothing else; if you need something else, add the
  * instantiation for that parameter at the end of .cc file). In the former case,
  * preprocess() is equivalent to runing BCP only. In the latter case, SatElite
  * is invoked (and disabled after the call).
@@ -73,7 +73,7 @@ public:
 
   void set_assumption(ULINT svar, LINT sval) {
     DBG(cout<<"Setting assumption: " << svar << " w/ value: " << sval<<endl);
-    assumps.push(Minisat::mkLit(svar, sval==0));
+    assumps.push(muser_Minisat::mkLit(svar, sval==0));
     DBG(cout<<"ASSUMP SIZE: "<<assumps.size()<<endl;);
   }
 
@@ -93,13 +93,13 @@ public:
   void add_clause(ULINT svar, IntVector& litvect) {
     assert(clits.size() == 0);
     update_maxvid(svar);
-    clits.push(Minisat::mkLit(svar, true));
+    clits.push(muser_Minisat::mkLit(svar, true));
     IntVector::iterator lpos = litvect.begin();
     IntVector::iterator lend = litvect.end();
     for(; lpos != lend; ++lpos) {
       LINT lit = *lpos;
       update_maxvid(std::llabs(lit));
-      clits.push(Minisat::mkLit(std::llabs(lit), lit<0));
+      clits.push(muser_Minisat::mkLit(std::llabs(lit), lit<0));
     }
     solver->addClause(clits);
     DBG(cout << "CL LITS: [";for(int i=0; i<clits.size(); ++i) { cout << toInt(clits[i]) << " "; } cout<<"0]\n";);
@@ -109,13 +109,13 @@ public:
   void add_clause(ULINT svar, BasicClause* cl) {
     assert(clits.size() == 0);
     update_maxvid(svar);
-    clits.push(Minisat::mkLit(svar, true));
+    clits.push(muser_Minisat::mkLit(svar, true));
     Literator lpos = cl->begin();
     Literator lend = cl->end();
     for(; lpos != lend; ++lpos) {
       LINT lit = *lpos;
       update_maxvid(std::llabs(lit));
-      clits.push(Minisat::mkLit(std::llabs(lit), lit<0));
+      clits.push(muser_Minisat::mkLit(std::llabs(lit), lit<0));
     }
     solver->addClause(clits);
     DBG(cout << "CL LITS: [";for(int i=0; i<clits.size(); ++i) { cout << toInt(clits[i]) << " "; } cout<<"0]\n";);
@@ -137,7 +137,7 @@ public:
     for(; lpos != lend; ++lpos) {
       LINT lit = *lpos;
       update_maxvid(std::llabs(lit));
-      clits.push(Minisat::mkLit(std::llabs(lit), lit<0));
+      clits.push(muser_Minisat::mkLit(std::llabs(lit), lit<0));
     }
     solver->addClause(clits);
     DBG(cout << "CL LITS: [";for(int i=0; i<clits.size(); ++i) { cout << toInt(clits[i]) << " "; } cout<<"0]\n";);
@@ -151,7 +151,7 @@ public:
     for(; lpos != lend; ++lpos) {
       LINT lit = *lpos;
       update_maxvid(std::llabs(lit));
-      clits.push(Minisat::mkLit(std::llabs(lit), lit<0));
+      clits.push(muser_Minisat::mkLit(std::llabs(lit), lit<0));
     }
     solver->addClause(clits);
     DBG(cout << "CL LITS: [";for(int i=0; i<clits.size(); ++i) { cout << toInt(clits[i]) << " "; } cout<<"0]\n";);
@@ -160,13 +160,13 @@ public:
 
   void del_clause(ULINT svar, IntVector& litvect) {
     assert(clits.size() == 0);
-    clits.push(Minisat::mkLit(svar, true));
+    clits.push(muser_Minisat::mkLit(svar, true));
     solver->addClause(clits);
     clits.clear();
   }
 
   void del_clause(ULINT svar, BasicClause* cl=NULL) {
-    clits.push(Minisat::mkLit(svar, true));
+    clits.push(muser_Minisat::mkLit(svar, true));
     solver->addClause(clits);
     clits.clear();
   }
@@ -180,7 +180,7 @@ public:
   }
 
   void make_clause_final(ULINT svar, BasicClause* cl) {
-    clits.push(Minisat::mkLit(svar, false));
+    clits.push(muser_Minisat::mkLit(svar, false));
     solver->addClause(clits);
     clits.clear();
   }
@@ -254,9 +254,9 @@ protected:
 
   bool simp;           // true when instantiated with simplifying solver
 
-  Minisat::vec<Minisat::Lit> clits;
+  muser_Minisat::vec<muser_Minisat::Lit> clits;
 
-  Minisat::vec<Minisat::Lit> assumps;
+  muser_Minisat::vec<muser_Minisat::Lit> assumps;
 
 };
 
@@ -265,14 +265,14 @@ protected:
  *
  * Purpose: Provides low-level incremental interface to Minisat22.
 \*----------------------------------------------------------------------------*/
-typedef Minisat22LowLevelWrapperTmpl<Minisat::Solver> Minisat22LowLevelWrapper;
+typedef Minisat22LowLevelWrapperTmpl<muser_Minisat::Solver> Minisat22LowLevelWrapper;
 
 /*----------------------------------------------------------------------------*\
  * Class: Minisat22sLowLevelWrapper
  *
  * Purpose: Provides low-level incremental interface to Minisat22 with SATElite
 \*----------------------------------------------------------------------------*/
-typedef Minisat22LowLevelWrapperTmpl<Minisat::SimpSolver> Minisat22sLowLevelWrapper;
+typedef Minisat22LowLevelWrapperTmpl<muser_Minisat::SimpSolver> Minisat22sLowLevelWrapper;
 
 #endif /* _MINISAT22_LL_WRAPPER_H */
 

@@ -75,7 +75,7 @@ public: // main interface
 
 private:
 
-  Minisat::Heap<GIDCompare> _heap;      // *mutable* heap
+  muser_Minisat::Heap<GIDCompare> _heap;      // *mutable* heap
 
 };
 

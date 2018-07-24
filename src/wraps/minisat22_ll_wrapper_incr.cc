@@ -13,7 +13,7 @@
 #include "globals.hh"
 #include "minisat22_ll_wrapper_incr.hh"
 
-using namespace Minisat;
+using namespace muser_Minisat;
 
 // Constructor. Calls minisat22_init()
 template<class S>
@@ -21,7 +21,7 @@ Minisat22LowLevelWrapperTmpl<S>::Minisat22LowLevelWrapperTmpl(IDManager& _imgr) 
   SATSolverLowLevelWrapper(_imgr), solver(NULL), clits(), assumps()
 {
   solver = new S();
-  simp = (dynamic_cast<Minisat::SimpSolver*>(solver) != NULL);
+  simp = (dynamic_cast<muser_Minisat::SimpSolver*>(solver) != NULL);
 }
 
 template<class S>
@@ -86,7 +86,7 @@ SATRes Minisat22LowLevelWrapperTmpl<S>::solve()
   else
     solver->setConfBudget(max_confls);
   lbool res = (simp
-      ? static_cast<Minisat::SimpSolver*>(solver)->solveLimited(assumps, false, false) // no prepro by default
+      ? static_cast<muser_Minisat::SimpSolver*>(solver)->solveLimited(assumps, false, false) // no prepro by default
       : solver->solveLimited(assumps));
   SATRes status = (res == l_True) ? SAT_True : ((res == l_False) ? SAT_False  : SAT_NoRes);
   DBG(cout << "Status: " << status << endl;
@@ -151,9 +151,9 @@ SATRes Minisat22LowLevelWrapperTmpl<S>::preprocess(bool turn_off)
   bool res = true;
   solver->verbosity = (verbosity > 5) ? 5 : 0; // b/c preprocess can be called before the rest
   if (simp) {
-    res = static_cast<Minisat::SimpSolver*>(solver)->eliminate(turn_off);   // true is to turn-off elimination after
+    res = static_cast<muser_Minisat::SimpSolver*>(solver)->eliminate(turn_off);   // true is to turn-off elimination after
   } else {
-    res = static_cast<Minisat::Solver*>(solver)->simplify();
+    res = static_cast<muser_Minisat::Solver*>(solver)->simplify();
   }
   return (!res) ? SAT_False : SAT_NoRes;
 }
@@ -162,7 +162,7 @@ template<class S>
 void Minisat22LowLevelWrapperTmpl<S>::freeze_var(ULINT var)
 {
   if (simp) {
-    static_cast<Minisat::SimpSolver*>(solver)->setFrozen(var, true);
+    static_cast<muser_Minisat::SimpSolver*>(solver)->setFrozen(var, true);
   }
 }
 
@@ -170,7 +170,7 @@ template<class S>
 void Minisat22LowLevelWrapperTmpl<S>::unfreeze_var(ULINT var)
 {
   if (simp) {
-    static_cast<Minisat::SimpSolver*>(solver)->setFrozen(var, false);
+    static_cast<muser_Minisat::SimpSolver*>(solver)->setFrozen(var, false);
   }
 }
 
@@ -212,7 +212,7 @@ void Minisat22LowLevelWrapperTmpl<S>::print_cnf(const char* fname)
 
 // this is to instantiate the templates -- allows to keep in the implementation
 // in .cc file; if you need another type, add it here
-template class Minisat22LowLevelWrapperTmpl<Minisat::Solver>;
-template class Minisat22LowLevelWrapperTmpl<Minisat::SimpSolver>;
+template class Minisat22LowLevelWrapperTmpl<muser_Minisat::Solver>;
+template class Minisat22LowLevelWrapperTmpl<muser_Minisat::SimpSolver>;
 
 /*----------------------------------------------------------------------------*/

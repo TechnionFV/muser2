@@ -32,8 +32,8 @@ class SATSolverLLFactory;
  * Class: Glucose30LowLevelWrapperTmpl
  *
  * Purpose: Provides low-level incremental interface to glucose30. This is
- * a template that specializes to either Glucose::Solver or to
- * Glucose::SimpSolver.
+ * a template that specializes to either muser_Glucose::Solver or to
+ * muser_Glucose::SimpSolver.
  *
  \*----------------------------------------------------------------------------*/
 //jpms:ec
@@ -78,7 +78,7 @@ public:
 
   void set_assumption(ULINT svar, LINT sval) {
     DBG(cout<<"[glucose30] set assumption: " << svar << " w/ value: " << sval<<endl);
-    assumps.push(Glucose::mkLit(svar, sval==0));
+    assumps.push(muser_Glucose::mkLit(svar, sval==0));
   }
 
   void set_assumptions(IntVector& assumptions) {
@@ -148,9 +148,9 @@ protected:
 
   bool simp = false;                            // set to true when simplifying
 
-  Glucose::vec<Glucose::Lit> clits;
+  muser_Glucose::vec<muser_Glucose::Lit> clits;
 
-  Glucose::vec<Glucose::Lit> assumps;
+  muser_Glucose::vec<muser_Glucose::Lit> assumps;
 
 };
 
@@ -159,7 +159,7 @@ protected:
  *
  * Purpose: Provides low-level incremental interface to glucose30.
 \*----------------------------------------------------------------------------*/
-typedef Glucose30LowLevelWrapperTmpl<Glucose::Solver> Glucose30LowLevelWrapper;
+typedef Glucose30LowLevelWrapperTmpl<muser_Glucose::Solver> Glucose30LowLevelWrapper;
 
 /*----------------------------------------------------------------------------*\
  * Class: Glucose30sLowLevelWrapper
@@ -168,6 +168,6 @@ typedef Glucose30LowLevelWrapperTmpl<Glucose::Solver> Glucose30LowLevelWrapper;
  *
  * Note: might be buggy !
 \*----------------------------------------------------------------------------*/
-typedef Glucose30LowLevelWrapperTmpl<Glucose::SimpSolver> Glucose30sLowLevelWrapper;
+typedef Glucose30LowLevelWrapperTmpl<muser_Glucose::SimpSolver> Glucose30sLowLevelWrapper;
 
 /*----------------------------------------------------------------------------*/
