@@ -21,7 +21,8 @@ smap = {
     '#include "' : '#include "../', #includes
     '"PRI' : '" PRI',                          # format macros
     'namespace Glucose' : 'namespace muser_Glucose',  #change namespace
-    'sort(learnts, reduceDB_lt(ca));' : 'sort(learnts, muser_Glucose::reduceDB_lt(ca));' #correct function call
+    'Glucose::' : 'muser_Glucose::',
+    'sort(learnts, reduceDB_lt(ca));' : 'sort(learnts, Glucose::reduceDB_lt(ca));' #correct function call
 }
 
 # wrapper map

@@ -23,7 +23,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 using namespace muser_Glucose;
 
-void Glucose::parseOptions(int& argc, char** argv, bool strict)
+void muser_Glucose::parseOptions(int& argc, char** argv, bool strict)
 {
     int i, j;
     for (i = j = 1; i < argc; i++){
@@ -54,9 +54,9 @@ void Glucose::parseOptions(int& argc, char** argv, bool strict)
 }
 
 
-void Glucose::setUsageHelp      (const char* str){ Option::getUsageString() = str; }
-void Glucose::setHelpPrefixStr  (const char* str){ Option::getHelpPrefixString() = str; }
-void Glucose::printUsageAndExit (int argc, char** argv, bool verbose)
+void muser_Glucose::setUsageHelp      (const char* str){ Option::getUsageString() = str; }
+void muser_Glucose::setHelpPrefixStr  (const char* str){ Option::getHelpPrefixString() = str; }
+void muser_Glucose::printUsageAndExit (int argc, char** argv, bool verbose)
 {
     const char* usage = Option::getUsageString();
     if (usage != NULL)
