@@ -19,7 +19,8 @@ import fileinput
 # substitutions map
 smap = {
     '#include "' : '#include "../', #includes
-    '"PRI' : '" PRI'                          # format macros
+    '"PRI' : '" PRI',                          # format macros
+    'namespace Glucose' : 'namespace muser_Glucose'  #change namespace
 }
 
 # original source root
@@ -81,6 +82,6 @@ for line in fileinput.input('core/Solver.cc', inplace=True):
     if line.find('c last restart ## conflicts') != -1:
         print('// ', end='')
     print(line, end='')
-    if line.startswith('using namespace Glucose'):
+    if line.startswith('using namespace muser_Glucose'):
         print('#pragma GCC diagnostic ignored "-Wsign-compare"')
 
