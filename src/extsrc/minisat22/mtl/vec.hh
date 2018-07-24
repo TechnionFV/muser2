@@ -27,7 +27,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "int_types.hh"
 #include "xalloc.hh"
 
-namespace Minisat {
+namespace muser_Minisat {
 
 //=================================================================================================
 // Automatically resizable arrays

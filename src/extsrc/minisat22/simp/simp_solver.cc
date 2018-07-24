@@ -22,7 +22,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "simp_solver.hh"
 #include "system.hh"
 
-using namespace Minisat;
+using namespace muser_Minisat;
 
 //=================================================================================================
 // Options:

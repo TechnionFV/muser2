@@ -30,7 +30,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "map.hh"
 #include "alloc.hh"
 
-namespace Minisat {
+namespace muser_Minisat {
 
 //=================================================================================================
 // Variables, literals, lifted booleans, clauses:
