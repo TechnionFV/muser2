@@ -1,4 +1,5 @@
 add_executable (muser2 muser2.cc)
+
 target_link_libraries (muser2
   wraps-2
   wraps
@@ -8,3 +9,4 @@ target_link_libraries (muser2
   minisat22
   glucose30
   ${ZLIB_LIBRARY})
+

@@ -5,7 +5,7 @@
  * Description: A basic clause is a vector of literals.
  *
  * Author:      jpms
- * 
+ *
  * Revision:    $Id$.
  *
  *                                     Copyright (c) 2009, Joao Marques-Silva
@@ -19,8 +19,8 @@
 #include "globals.hh"
 #include "cl_id_manager.hh"
 
-// Anton: added a bit of code to support various pre-processing and simplification 
-// techniques during MUS extraction. There's basically no run-time overhead 
+// Anton: added a bit of code to support various pre-processing and simplification
+// techniques during MUS extraction. There's basically no run-time overhead
 // except a few initializations (note that most of the methods are left unchanged
 // and so should not be used in applications that simplify clauses).
 
@@ -51,8 +51,8 @@ class BasicClause {
   friend class BasicGroupSet;
 protected:
 
-  BasicClause(const vector<LINT>& lits) 
-    : clits(lits), weight(0), id(ClauseIdManager::Instance()->new_id()), 
+  BasicClause(const vector<LINT>& lits)
+    : clits(lits), weight(0), id(ClauseIdManager::Instance()->new_id()),
       grp_id(gid_Undef)
     , _aend(clits.end()), _asize(clits.size()), _abstr(calculate_abstr())
   {
@@ -87,7 +87,7 @@ protected:
     clits.push_back(lit);    // Currently sorts; it is simpler to insert & shift
     assert(clits.size() > 0);
     if (abs(lit) < abs(clits[clits.size()-1])) {
-      sort_lits();    // alternatively: 
+      sort_lits();    // alternatively:
       /*  => Seems to be less efficient
 	  Literator pos2 = clits.end();
 	  Literator pos1 = clits.end();
@@ -107,7 +107,7 @@ protected:
       if (*pos == lit) { *pos = clits.back(); break; }
     }
     clits.pop_back();    // Currently sorts; it is simpler to insert & shift
-    //sort_lits();  // alternatively: 
+    //sort_lits();  // alternatively:
     //update_internal_data((unsigned)lit);   // hash XOR removes bits due to lit
   }
 
@@ -176,7 +176,7 @@ protected:
 
   ULINT compute_hash() {    // Not being used: see below new hash functions
     exit(0);
-    register ULINT hashv = 0;
+    ULINT hashv = 0;
     for(vector<LINT>::iterator pos = clits.begin(); pos != clits.end(); ++pos) {
       hashv ^= (*pos>0) ? *pos : -*pos;
     }
@@ -197,11 +197,11 @@ protected:
 
   GID grp_id; // ANTON: the actual group ID, rather than using id
 
-  /* This part is added to support various pre-processing and simplification 
+  /* This part is added to support various pre-processing and simplification
    * techniques during MUS extraction. See comments at the top of this file.
    */
 
-public: 
+public:
 
   /** Clause removal */
   void mark_removed(void) { _flags.removed = 1; }
@@ -213,8 +213,8 @@ public:
   void mark_unsorted(void) { _flags.unsorted = 1; }
   bool unsorted(void) const { return _flags.unsorted; }
   // sorts active literals and marks the clause not un-sorted
-  void sort_alits(void) { 
-    sort(clits.begin(), _aend, AbsLitLess()); 
+  void sort_alits(void) {
+    sort(clits.begin(), _aend, AbsLitLess());
     _flags.unsorted = 0;
   }
 
@@ -236,7 +236,7 @@ public:
   void restore(void) { _asize = size(); _aend = clits.end(); update_abstr(); }
 
   /** Returns iterator to a literal of variable v in the active part
-   * or the clause, or aend() if not found. 
+   * or the clause, or aend() if not found.
    */
   CLiterator afind(ULINT var) const
   {
@@ -286,7 +286,7 @@ public:
   /** Access to the incoming literal */
   LINT incoming_lit(void) const { return _incoming_lit; }
   void set_incoming_lit(LINT il) { _incoming_lit = il; }
-  
+
   /** Access to the incoming parent */
   BasicClause* incoming_parent(void) const { return _incoming_parent; }
   void set_incoming_parent(BasicClause* ip) { _incoming_parent = ip; }
@@ -311,21 +311,21 @@ protected:
     }
     return abstr;
   }
-  
+
   // various useful flags
   struct flags {
     unsigned removed   : 1;     // 1 when the clause is removed
     unsigned unsorted  : 1;     // 1 when the clause might be un-sorted
-    unsigned unused    : 30; 
+    unsigned unused    : 30;
     flags(void) { removed = 0; unsorted = 0; }
   } _flags;
-  
+
   // all falsified literals will be moved to the end of the clause; note that
   // since all literals are sorted, the remaining literals will also be sorted;
   // thus, all we need to do is to keep track of the "real" end of the clause.
 
   Literator _aend;       // initially lits.end()
-  
+
   size_t _asize;         // initially lits.size()
 
   ULINT _abstr;          // abstraction

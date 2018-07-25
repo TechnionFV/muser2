@@ -5,7 +5,7 @@
  * Description: Configuration of MUS extractors.
  *
  * Author:      jpms
- * 
+ *
  *                                     Copyright (c) 2010, Joao Marques-Silva
  \*----------------------------------------------------------------------------*/
 //jpms:ec
@@ -50,7 +50,7 @@ public:
 
   void append_cmdstr(const char* cmd) { _cmdstr += " "; _cmdstr += cmd; }
 
-  int get_verbosity() { return _verbosity; }
+  int get_verbosity() override { return _verbosity; }
 
   void set_verbosity(int verb) { _verbosity = verb; }
 
@@ -82,9 +82,9 @@ public:
 
   void set_output_fmt(int fmt) { _output_fmt = fmt; }
 
-  const char* get_sat_solver(void) { return _solver; } 
+  const char* get_sat_solver(void) { return _solver; }
 
-  bool chk_sat_solver(const char* tsolver) { return !strcmp(_solver, tsolver); }
+  bool chk_sat_solver(const char* tsolver) override { return !strcmp(_solver, tsolver); }
 
   void set_sat_solver(const char* tsolver) { _solver = tsolver; }
 
@@ -108,7 +108,7 @@ public:
 
   void unset_init_unsat_chk() { _init_unsat_chk = false; }
 
-  bool get_incr_mode() { return _incr_mode; }
+  bool get_incr_mode() override { return _incr_mode; }
 
   void set_incr_mode() { _incr_mode = true; }
 
@@ -150,13 +150,13 @@ public:
 
   void unset_grp_mode() { _grp_mode = false; }
 
-  bool get_grp_mode() { return _grp_mode; }
+  bool get_grp_mode() override { return _grp_mode; }
 
   void set_trace_enabled() { _trace_on = true; }
 
   void unset_trace_enabled() { _trace_on = false; }
 
-  bool get_trace_enabled() { return _trace_on; }
+  bool get_trace_enabled() override { return _trace_on; }
 
   bool get_rm_red_mode() { return _red_mode; }
 
@@ -257,32 +257,32 @@ public:
 
   bool get_del_mode() { return _del_mode; }
 
-  void set_del_mode() { 
-    _del_mode = true; _ins_mode = false; _dich_mode = false; 
+  void set_del_mode() {
+    _del_mode = true; _ins_mode = false; _dich_mode = false;
     _chunk_mode = false; _subset_mode = -1; _fbar_mode = false; _prog_mode = false; }
 
   void unset_del_mode() { _del_mode=false; }
 
   bool get_ins_mode() { return _ins_mode; }
 
-  void set_ins_mode() { 
-    _ins_mode = true; _del_mode = false; _dich_mode = false; 
+  void set_ins_mode() {
+    _ins_mode = true; _del_mode = false; _dich_mode = false;
     _chunk_mode = false; _subset_mode = -1; _fbar_mode = false; _prog_mode = false; }
 
   void unset_ins_mode() { _ins_mode=false; }
 
   bool get_dich_mode() { return _dich_mode; }
 
-  void set_dich_mode() { 
-    _dich_mode = true; _ins_mode = false; _del_mode = false;    
+  void set_dich_mode() {
+    _dich_mode = true; _ins_mode = false; _del_mode = false;
     _chunk_mode = false; _subset_mode = -1; _fbar_mode = false; _prog_mode = false; }
 
   void unset_dich_mode() { _ins_mode=false; }
 
   bool get_chunk_mode() { return _chunk_mode; }
 
-  void set_chunk_mode() { 
-    _chunk_mode = true; _del_mode = false; _ins_mode = false; 
+  void set_chunk_mode() {
+    _chunk_mode = true; _del_mode = false; _ins_mode = false;
     _dich_mode = false; _subset_mode = -1; _fbar_mode = false; _prog_mode = false; }
 
   void unset_chunk_mode() { _chunk_mode = false; }
@@ -293,10 +293,10 @@ public:
 
   int get_subset_mode() { return _subset_mode; }
 
-  void set_subset_mode(int sm) { 
+  void set_subset_mode(int sm) {
     if (sm < 0) return;
-    _subset_mode = sm; _del_mode = false; _ins_mode = false; 
-    _dich_mode = false; _chunk_mode = false; _fbar_mode = false; _prog_mode = false; 
+    _subset_mode = sm; _del_mode = false; _ins_mode = false;
+    _dich_mode = false; _chunk_mode = false; _fbar_mode = false; _prog_mode = false;
     if ((sm > 0) && (sm < 10))
       set_trace_enabled();
   }
@@ -311,8 +311,8 @@ public:
 
   void set_fbar_mode() {
     _fbar_mode = true;
-    _subset_mode = -1; _del_mode = false; _ins_mode = false; 
-    _dich_mode = false; _chunk_mode = false; _prog_mode = false; 
+    _subset_mode = -1; _del_mode = false; _ins_mode = false;
+    _dich_mode = false; _chunk_mode = false; _prog_mode = false;
   }
 
   void unset_prog_mode() { _prog_mode = false; }
@@ -321,8 +321,8 @@ public:
 
   void set_prog_mode() {
     _prog_mode = true;
-    _subset_mode = -1; _del_mode = false; _ins_mode = false; 
-    _dich_mode = false; _chunk_mode = false; _fbar_mode = false; 
+    _subset_mode = -1; _del_mode = false; _ins_mode = false;
+    _dich_mode = false; _chunk_mode = false; _fbar_mode = false;
   }
 
   void unset_fbar_mode() { _fbar_mode = false; }
@@ -422,36 +422,36 @@ public:
 
     if (!_incr_mode)  { cfgstr += " -nonincr"; }
 
-    if (_var_mode) cfgstr += " -var"; 
+    if (_var_mode) cfgstr += " -var";
 
-    if (_grp_mode) cfgstr += " -grp"; 
+    if (_grp_mode) cfgstr += " -grp";
 
-    if (_irr_mode) { 
+    if (_irr_mode) {
       cfgstr += " -irr";
-    } else if (!_mus_mode) { 
-      cfgstr += " -nomus"; 
+    } else if (!_mus_mode) {
+      cfgstr += " -nomus";
     }
 
     if (_ins_mode) { cfgstr += " -ins"; }
 
     if (_dich_mode) { cfgstr += " -dich"; }
 
-    if (_chunk_mode) { 
-      cfgstr += " -chunk "; 
-      cfgstr += convert<unsigned>(_chunk_size); 
+    if (_chunk_mode) {
+      cfgstr += " -chunk ";
+      cfgstr += convert<unsigned>(_chunk_size);
     }
 
     if (_subset_mode >= 0) {
       cfgstr += " -subset ";
-      cfgstr += convert<unsigned>(_subset_mode); 
+      cfgstr += convert<unsigned>(_subset_mode);
       cfgstr += " ";
-      cfgstr += convert<unsigned>(_subset_size); 
+      cfgstr += convert<unsigned>(_subset_size);
       cfgstr += " ";
-      cfgstr += convert<unsigned>(_unsat_limit); 
+      cfgstr += convert<unsigned>(_unsat_limit);
     }
 
     if (_fbar_mode) { cfgstr += " -fbar"; }
-      
+
     if (_prog_mode) { cfgstr += " -prog"; }
 
     if (_trim_uset) {
@@ -475,7 +475,7 @@ public:
     if (_solpre_mode) { cfgstr += " -solpre "; cfgstr += convert<int>(_solpre_mode); }
 
 #ifdef MULTI_THREADED
-    cfgstr += " -nthr "; cfgstr += convert<unsigned>(_num_threads); 
+    cfgstr += " -nthr "; cfgstr += convert<unsigned>(_num_threads);
 #endif
 
     if (_red_mode)      { cfgstr += " -rr"; }
@@ -483,7 +483,7 @@ public:
     if (_reda_mode)      { cfgstr += " -rra"; }
 
     if (get_model_rotate_mode()) {
-      if (_emr_mode) { 
+      if (_emr_mode) {
         cfgstr += " -emr";
         if (_rot_depth != 1) { cfgstr += " -rdepth "; cfgstr += convert<unsigned>(_rot_depth); }
         if (_rot_width != 1) { cfgstr += " -rwidth "; cfgstr += convert<unsigned>(_rot_width); }
@@ -512,9 +512,9 @@ public:
     }
     if (_ve_mode) { cfgstr += " -ve"; }
 
-    if (_pc_mode) { 
-      cfgstr += " -pc"; 
-      cfgstr += " -pc:pol "; cfgstr += convert<int>(_pc_pol); 
+    if (_pc_mode) {
+      cfgstr += " -pc";
+      cfgstr += " -pc:pol "; cfgstr += convert<int>(_pc_pol);
     }
 
     if (_approx_mode) {
@@ -547,7 +547,7 @@ public:
     cfgstr += " -param3 "; cfgstr += convert<unsigned>(_param3);
     cfgstr += " -param4 "; cfgstr += convert<unsigned>(_param4);
     cfgstr += " -param5 "; cfgstr += convert<unsigned>(_param5);
-#endif    
+#endif
 
   }
 
@@ -605,7 +605,7 @@ protected:
 
   bool _rmr_mode = true;    // True if rotating models using RMR
 
-  bool _emr_mode = false;   // True if rotating models using EMR 
+  bool _emr_mode = false;   // True if rotating models using EMR
 
   unsigned _rot_depth = 1;  // Rotation depth (0 = unlimited) for EMR
 

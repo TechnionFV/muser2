@@ -27,7 +27,7 @@ class ClauseHash {
 public:
   std::size_t operator()(BasicClause* clref) const {  // see below new hash functions
     //return clref->clhash(); // -> Very slow; unable to undertand why
-    register std::size_t hashv = 0;
+    std::size_t hashv = 0;
     for(Literator pos = clref->begin(); pos != clref->end(); ++pos) {
       hashv ^= (*pos>0) ? *pos : -*pos;
     }
@@ -56,7 +56,7 @@ public:
     // if defined, the clause hash value is calculated based on content, not
     // the pointer -- give more predictable results; this code is taken from
     // ClauseHash
-    register std::size_t hashv = 0;
+    std::size_t hashv = 0;
     BasicClause* clref = (BasicClause*)ptr;
     for(Literator pos = clref->begin(); pos != clref->end(); ++pos) {
       hashv ^= (*pos>0) ? *pos : -*pos;
@@ -125,8 +125,8 @@ class LitVectHash {
 public:
   std::size_t operator()(vector<LINT>* lvect) const {
     //cout << "VECT SIZE:" << lvect->size() <<endl;
-    register std::size_t hashv = 0;
-    //register std::size_t hashv = 1;
+    std::size_t hashv = 0;
+    //std::size_t hashv = 1;
     //cout << "Hash value: " << hashv << endl; cout.flush();
     for(vector<LINT>::iterator pos=lvect->begin(); pos!=lvect->end(); ++pos) {
       // v3:
@@ -159,7 +159,7 @@ public:
       if (*pos1 != *pos2) { return false; }
     }
     /* Not as efficient...
-      for(register int k=0; k<lv1->size(); ++k) {    // vectors w/ the same size
+      for(int k=0; k<lv1->size(); ++k) {    // vectors w/ the same size
       if ((*lv1)[k] != (*lv2)[k]) { return false; }
       } //cout<<((pos1==lv1->end()&&pos2==lv2->end())?"TRUE":"FALSE B")<<endl;
       // Also tried reverse iterators, to no avail

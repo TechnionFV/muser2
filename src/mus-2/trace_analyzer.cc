@@ -17,8 +17,15 @@
 using namespace std;
 //using namespace __gnu_cxx; // <-- for hash_map
 
+// AG: disable debug
 //#define DBG(x) x
-#define DBG(x) 
+#define DBG(x)
+
+// AG is also defined here with a different definition
+// ../src/include/types.hh:34:9: note: previous definition is here
+#ifdef NONE
+#undef NONE
+#endif
 
 #define NONE 	 0
 #define ARTPNT   1

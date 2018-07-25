@@ -30,13 +30,19 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 #else
 
+#ifndef __STDC_LIMIT_MACROS
 #   define __STDC_LIMIT_MACROS
+#endif
+#ifndef __STDC_CONSTANT_MACROS
 #   define __STDC_CONSTANT_MACROS
+#endif
 #   undef _STDINT_H_
 #   undef _STDINT_H
 #   undef _GCC_WRAP_STDINT_H
 #   include <stdint.h>
+#ifndef __STDC_FORMAT_MACROS
 #   define __STDC_FORMAT_MACROS
+#endif
 #   include <inttypes.h>
 
 #endif

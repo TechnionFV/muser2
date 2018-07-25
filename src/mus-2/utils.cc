@@ -4,7 +4,7 @@
  * Description: Implementation of various utility functions.
  *
  * Author:      antonb
- * 
+ *
  *                                               Copyright (c) 2012, Anton Belov
  \*----------------------------------------------------------------------------*/
 
@@ -14,7 +14,7 @@
 #include "globals.hh"
 #include "utils.hh"
 
-/* Returns true if c1 subsumes c2.; relies on the fact the active literals in 
+/* Returns true if c1 subsumes c2.; relies on the fact the active literals in
  * clauses are sorted in increasing order of their absolute values.
  */
 bool Utils::subsumes(const BasicClause* c1, const BasicClause* c2)
@@ -27,14 +27,14 @@ bool Utils::subsumes(const BasicClause* c1, const BasicClause* c2)
   if (c1->abstr() & ~c2->abstr())
     return false;
   // slow check
-  register LINT* first = &(const_cast<BasicClause*>(c1)->lits()[0]); 
-  register LINT* first_end = first + c1->asize(); 
-  register LINT* second = &(const_cast<BasicClause*>(c2)->lits()[0]); 
-  register LINT* second_end = second + c2->asize(); 
+  LINT* first = &(const_cast<BasicClause*>(c1)->lits()[0]);
+  LINT* first_end = first + c1->asize();
+  LINT* second = &(const_cast<BasicClause*>(c2)->lits()[0]);
+  LINT* second_end = second + c2->asize();
   while (first != first_end) {
     // find 'first' in the second clause
     while (*second != *first) {
-      ++second; 
+      ++second;
       if (second == second_end) { return false; }
     }
     ++first;
@@ -42,9 +42,9 @@ bool Utils::subsumes(const BasicClause* c1, const BasicClause* c2)
   return true;
 }
 
-/* Returns true if the resolvent of the two given clauses on a literal is 
- * tautological; this does the full (long) check; relies on the fact the 
- * active literals in clauses are sorted in increasing order of their 
+/* Returns true if the resolvent of the two given clauses on a literal is
+ * tautological; this does the full (long) check; relies on the fact the
+ * active literals in clauses are sorted in increasing order of their
  * absolute values.
  */
 bool Utils::taut_resolvent(const BasicClause *c1, const BasicClause *c2, LINT lit)
@@ -93,7 +93,7 @@ int Utils::tv_clause(const IntVector& ass, const BasicClause* cl)
 }
 
 /* Returns the number of true literals in the clause under assignment.
- */     
+ */
 int Utils::num_tl_clause(const IntVector& ass, const BasicClause* cl)
 {
   unsigned res = 0;
@@ -103,12 +103,12 @@ int Utils::num_tl_clause(const IntVector& ass, const BasicClause* cl)
       if ((*lpos > 0 && ass[var] == 1) ||
           (*lpos < 0 && ass[var] == -1))
         res++;
-    } 
+    }
   }
   return res;
 }
 
-/* Checks whether a given assignment satisfies a set of clauses; return 1 for SAT, 
+/* Checks whether a given assignment satisfies a set of clauses; return 1 for SAT,
  * -1 for UNSAT, 0 for undetermined. A set is SAT iff all clauses are SAT, a set
  * is UNSAT iff at least one clause is UNSAT, undetermined otherwise
  */
@@ -178,8 +178,8 @@ void Utils::make_neg_group(const BasicClauseVector& cls,
 // implementation of product generator
 
 /* Constructor */
-Utils::ProductGenerator::ProductGenerator(const BasicClauseVector& clauses) 
-  : _clauses(clauses) 
+Utils::ProductGenerator::ProductGenerator(const BasicClauseVector& clauses)
+  : _clauses(clauses)
 {
   if (_clauses.empty())
     throw logic_error("Empty vector of clauses passed to "
@@ -190,8 +190,8 @@ Utils::ProductGenerator::ProductGenerator(const BasicClauseVector& clauses)
 }
 
 /* Returns a reference to the next product */
-const vector<LINT>& Utils::ProductGenerator::next_product(void) 
-{ 
+const vector<LINT>& Utils::ProductGenerator::next_product(void)
+{
   if (!has_next_product())
     throw logic_error("ProductGenerator::next_product() is called when no "
                       "next product is available");
@@ -202,7 +202,7 @@ const vector<LINT>& Utils::ProductGenerator::next_product(void)
   for (int i = (int)_iters.size()-1; i >= 0; --i) {
     if (++_iters[i] != _clauses[i]->aend()) // done
       break;
-    if (i) // first one can't roll over 
+    if (i) // first one can't roll over
       _iters[i] = _clauses[i]->abegin();
   }
   return _product;

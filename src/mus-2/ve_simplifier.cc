@@ -4,9 +4,9 @@
  * Description: Implementation of VE-based simplifier worker.
  *
  * Author:      antonb
- * 
+ *
  * Notes:
- *      1. The algorithm implemented here is very close to SatElite. The key 
+ *      1. The algorithm implemented here is very close to SatElite. The key
  *      point is to do variable elimination and subsumption and self-subsumption
  *      together. Note that this combo supercedes BCP.
  *
@@ -38,11 +38,11 @@ namespace {
   /* A queue of non-empty clauses
    */
   class ClauseQueue {
-  public:       
+  public:
     /* Insert clause */
-    void insert(BasicClause* cl) { 
+    void insert(BasicClause* cl) {
       assert(cl->asize() > 0);
-      //if (cl->asize() == 1) _q.push_front(cl); else 
+      //if (cl->asize() == 1) _q.push_front(cl); else
       _q.push_back(cl);
     }
     /* Get the front */
@@ -55,11 +55,11 @@ namespace {
     bool empty() { return _q.size() == 0; }
     /* Returns true if the queue has at least one unit */
     bool has_units(void) { return !_q.empty() && _q.front()->asize() == 1; }
-  private:      
+  private:
     deque<BasicClause*> _q;
   };
 
-  /** The "touched variable" heap; current implementation is using Minisat 
+  /** The "touched variable" heap; current implementation is using Minisat
    * mutable heap. Note however that it would need to allocate 4*max_var ints
    * so I should also try boost.
    */
@@ -80,7 +80,7 @@ namespace {
 
     muser_Minisat::Heap<VarOrder> _heap;      // *mutable* heap
 
-  public:   
+  public:
 
     VarHeap(const OccsList& o_list) : _heap(VarOrder(o_list)) {}
 
@@ -92,7 +92,7 @@ namespace {
 
     // insert or percolate up/down
     void update(ULINT v) { _heap.update(v); }
-    
+
   };
 
   // see implementation's comment for detailed spec
@@ -104,7 +104,7 @@ namespace {
   /* Removes all clauses subsumed by c from gs. */
   void remove_subsumed(SimplifyVE& sv, const BasicClause* c);
   /* Resolves c1 and c2 on v, returns resolvent or NULL in case of tautology. */
-  BasicClause* resolve(SimplifyVE& sv, const BasicClause* c1, 
+  BasicClause* resolve(SimplifyVE& sv, const BasicClause* c1,
                        const BasicClause *c2, ULINT v);
   /* Removes all clauses that have literal l */
   void remove_all(SimplifyVE& sv, LINT l);
@@ -126,7 +126,7 @@ namespace {
 } // anonymous namespace
 
 
-/* Handles the SimplifyVE work item. This includes variable elimination, 
+/* Handles the SimplifyVE work item. This includes variable elimination,
  * subsumtion, and self-subsumption.
  */
 bool VESimplifier::process(SimplifyVE& sv)
@@ -143,10 +143,10 @@ bool VESimplifier::process(SimplifyVE& sv)
   double t_start = RUSAGE::read_cpu_time();
 
   // grab the write lock right away ...
-  md.lock_for_writing(); 
+  md.lock_for_writing();
 
   // initialize with units
-  for (BasicClauseVector::const_iterator pcl = gs.units().begin(); 
+  for (BasicClauseVector::const_iterator pcl = gs.units().begin();
        pcl != gs.units().end(); ++pcl)
     if (!(*pcl)->removed())
       cqueue.insert(*pcl);
@@ -234,7 +234,7 @@ bool VESimplifier::process(SimplifyVE& sv)
           remove_clause(sv, *pcl);
   }
   md.release_lock();
-  sv.cpu_time() = RUSAGE::read_cpu_time() - t_start;    
+  sv.cpu_time() = RUSAGE::read_cpu_time() - t_start;
   sv.rcl_count() = r_clauses - a_clauses;
   sv.set_completed();
   DBG(cout << "-VESimplifier::process()." << endl;);
@@ -242,7 +242,7 @@ bool VESimplifier::process(SimplifyVE& sv)
 }
 
 /* Reconstructs the solution (inside sv.md()) in terms of the original
- * clauses. 'sv' is expected to be the instance used during the last 
+ * clauses. 'sv' is expected to be the instance used during the last
  * call to process()
  * NOTE: this is a prototype/experimental version
  */
@@ -257,18 +257,18 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
 
   double t_start = RUSAGE::read_cpu_time();
 
-  // this will keep the reconstructed levels -- current, and next 
+  // this will keep the reconstructed levels -- current, and next
   // (in the opposite direction)
   HashedClauseSet curr_lvl;
   vector<BasicClause*> to_remove, to_insert;
-  
+
   // make the initial level of clauses -- in case of conflict this is just
   // the empty clause, otherwise these are the clauses in the computed MUS
   if (sv.conflict()) {
     md.make_empty_gmus();
     curr_lvl.insert(sv.conflict_clause());
   } else {
-    for (GIDSetCIterator pgid = md.nec_gids().begin(); 
+    for (GIDSetCIterator pgid = md.nec_gids().begin();
          pgid != md.nec_gids().end(); ++pgid) {
       assert(gs.gclauses(*pgid).size() == 1);
       curr_lvl.insert(*gs.gclauses(*pgid).begin());
@@ -281,7 +281,7 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
          for (cset_iterator pcl = curr_lvl.begin(); pcl != curr_lvl.end(); ++pcl)
            (*pcl)->dump();
          cout << endl;);
-    DBG(cout << "processing " << var << ", level size = " << curr_lvl.size() 
+    DBG(cout << "processing " << var << ", level size = " << curr_lvl.size()
         << endl;);
 
     // run through the current level -- any clause that is not involved with var
@@ -296,7 +296,7 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
           to_remove.push_back(*pcl);
           to_insert.push_back(pdd->second.r1);
           to_insert.push_back(pdd->second.r2);
-          DBG(cout << "    replacing " << **pcl << " with " 
+          DBG(cout << "    replacing " << **pcl << " with "
               << *(pdd->second.r1) << " and " << *(pdd->second.r2) << endl;);
           if (pdd->second.count > 1) // assume unsafe
             single_res = false;
@@ -305,7 +305,7 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
     // +TEMP test for safety: compute VE of to_insert, and for each clause, test
     // if it is in curr_lvl -- if not, then the reconstruction might be unsafe
     vector<BasicClause*> pos, neg;
-    for (vector<BasicClause*>::iterator pcl = to_insert.begin(); 
+    for (vector<BasicClause*>::iterator pcl = to_insert.begin();
          pcl != to_insert.end(); ++pcl) {
       CLiterator plit = (*pcl)->afind(var);
       assert(plit != (*pcl)->aend());
@@ -339,16 +339,16 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
       _unsound = true;
     if (!single_res)
       _unsound_mr = true;
-    NDBG(cout << endl << "    the reconstruction is " 
+    NDBG(cout << endl << "    the reconstruction is "
         << ((safe && single_res) ? "safe" : "NOT safe") << endl;);
     if (!(safe && single_res)) {
-      cout << "c  unsafe reconstruction step: " 
+      cout << "c  unsafe reconstruction step: "
            <<  ((safe) ? "" : "violated-equality ")
            <<  ((single_res) ? "" : "multi-resolvent ")
            << endl;
     }
     // -TEMP
-    for (vector<BasicClause*>::iterator pcl = to_remove.begin(); 
+    for (vector<BasicClause*>::iterator pcl = to_remove.begin();
          pcl != to_remove.end(); ++pcl) {
       BasicClause* cl = *pcl;
       cl->mark_removed();
@@ -356,7 +356,7 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
       md.r_gids().insert(cl->get_grp_id());
       curr_lvl.erase(cl);
     }
-    for (vector<BasicClause*>::iterator pcl = to_insert.begin(); 
+    for (vector<BasicClause*>::iterator pcl = to_insert.begin();
          pcl != to_insert.end(); ++pcl) {
       BasicClause* cl = *pcl;
       cl->unmark_removed();
@@ -365,7 +365,7 @@ void VESimplifier::reconstruct_solution(SimplifyVE& sv)
       curr_lvl.insert(cl);
     }
   }
-  sv.cpu_time() = RUSAGE::read_cpu_time() - t_start;    
+  sv.cpu_time() = RUSAGE::read_cpu_time() - t_start;
   DBG(cout << "-VESimplifier::reconstruct_solution()." << endl;);
 }
 
@@ -389,14 +389,14 @@ namespace {
     if (c1->abstr() & ~c2->abstr())
       return false;
     // slow check
-    register LINT* first = &(const_cast<BasicClause*>(c1)->lits()[0]); 
-    register LINT* first_end = first + c1->asize(); 
-    register LINT* second = &(const_cast<BasicClause*>(c2)->lits()[0]); 
-    register LINT* second_end = second + c2->asize(); 
+    LINT* first = &(const_cast<BasicClause*>(c1)->lits()[0]);
+    LINT* first_end = first + c1->asize();
+    LINT* second = &(const_cast<BasicClause*>(c2)->lits()[0]);
+    LINT* second_end = second + c2->asize();
     while (first != first_end) {
       // find 'first' in the second clause
       while (*second != *first) {
-        ++second; 
+        ++second;
         if (second == second_end) { return false; }
       }
       ++first;
@@ -418,7 +418,7 @@ namespace {
     GID gid = c->get_grp_id();
     if (gs.a_count(gid) == 0) {
       md.r_gids().insert(gid);
-      md.r_list().push_front(gid);      
+      md.r_list().push_front(gid);
       r_groups++;
     }
   }
@@ -428,11 +428,11 @@ namespace {
    * @pre c \in gs
    * @post c' \in gs & subsumes(c, c') -> c' \in sub
    */
-  void calculate_subsumed(SimplifyVE& sv, const BasicClause* c, 
-                          BasicClauseVector& sub) 
+  void calculate_subsumed(SimplifyVE& sv, const BasicClause* c,
+                          BasicClauseVector& sub)
   {
     assert(!c->removed() && c->asize() > 0);
-    NDBG(cout << "+calculate_subsumed(): computing clauses subsumed by "; c->dump(); 
+    NDBG(cout << "+calculate_subsumed(): computing clauses subsumed by "; c->dump();
         cout << endl;);
     BasicGroupSet& gs = sv.md().gset();
     // special case: c is the empty clause, everything is subsumed by it
@@ -465,8 +465,8 @@ namespace {
       }
       NDBG(cout << endl;);
       ++pcl;
-    }       
-    // done    
+    }
+    // done
     NDBG(cout << "-calculate_subsumed(): done." << endl;);
   }
 
@@ -474,17 +474,17 @@ namespace {
    * @pre c \in gs
    * @post c' \in gs\gs' -> (c' != c) & subsumes(c, c')
    */
-  void remove_subsumed(SimplifyVE& sv, const BasicClause* c) 
+  void remove_subsumed(SimplifyVE& sv, const BasicClause* c)
   {
     assert(!c->removed() && c->asize() > 0);
-    NDBG(cout << "+remove_subsumed(): removing clauses subsumed by "; c->dump(); 
+    NDBG(cout << "+remove_subsumed(): removing clauses subsumed by "; c->dump();
         cout << endl;);
     BasicClauseVector subs;
     calculate_subsumed(sv, c, subs);
     for (BasicClauseVector::iterator pcl = subs.begin(); pcl != subs.end(); ++pcl)
       remove_clause(sv, *pcl);
-    // done    
-    NDBG(cout << "-remove_subsumed(): done, removed " << subs.size() 
+    // done
+    NDBG(cout << "-remove_subsumed(): done, removed " << subs.size()
         << " clauses." << endl;);
   }
 
@@ -494,7 +494,7 @@ namespace {
    * @return if (clash(c1,c2) = {v}) then c1 R_v c2 else NULL
    * @post if rv != NULL, then rv = c1 R_v c2 & sorted(rv) & !dulicates(rv)
    */
-  BasicClause* resolve(SimplifyVE& sv, const BasicClause* c1, 
+  BasicClause* resolve(SimplifyVE& sv, const BasicClause* c1,
                        const BasicClause *c2, ULINT v)
   {
     BasicGroupSet& gs = sv.md().gset();
@@ -552,7 +552,7 @@ namespace {
     }
     assert(gs.occs_list().active_size(l) == 0);
   }
-           
+
   /* Removes all clauses that have variable v
    * @pre none
    * @post c \in gs' -> v \notin var(c)
@@ -595,8 +595,8 @@ namespace {
               lits.push_back(*plit);
           BasicClause* res = gs.make_clause(lits);
           NDBG(cout << " got " << *res << flush;);
-          // check if the clause is already in the set -- if not, add it and its 
-          // derivation data; otherwise ignore  
+          // check if the clause is already in the set -- if not, add it and its
+          // derivation data; otherwise ignore
           BasicClause* old_res = gs.lookup_clause(res);
           if (old_res == NULL) {
             assert(!sv.group_mode());
@@ -607,7 +607,7 @@ namespace {
             NDBG(cout << " new, added; " << flush;);
             // now, special cases: empty clause and unit clause
             if (res->asize() == 0) {
-              // empty clause 
+              // empty clause
               NDBG(cout << " conflict, terminating." << endl;);
               sv.set_conflict_clause(res);
               sv.trace().push_back(abs(lit));
@@ -648,7 +648,7 @@ namespace {
    * }
    * @post if rv, then {
    *       (occs(gs, v) = \emptyset) & (occs(gs, -v) = \emptyset) &
-   *       (c \in gs' <-> ((c \in gs) & (v \notin var(c))) | 
+   *       (c \in gs' <-> ((c \in gs) & (v \notin var(c))) |
    *                      ((c \notin gs) & \exists c1, c2 \in gs \ gs' (c = c1 R_v c2))
    *       }
    */
@@ -660,8 +660,8 @@ namespace {
     if (!occs.active_size(v) && !occs.active_size(-v))
       return true;
     assert(occs.active_size(v) || occs.active_size(-v));
-    // check for pure 
-    if (!(occs.active_size(v) && occs.active_size(-v))) { 
+    // check for pure
+    if (!(occs.active_size(v) && occs.active_size(-v))) {
       LINT pure_lit = occs.active_size(v) ? (LINT)v : -(LINT)v;
       // remove and put all variables on the queue
       BasicClauseList& cls = occs.clauses(pure_lit);
@@ -696,8 +696,8 @@ namespace {
         // ok, got the clauses, try them ...
         BasicClause *cl1 = (*pcl1), *cl2 = (*pcl2), *res = resolve(sv, cl1, cl2, v);
         NDBG(cout << "  trying " << *cl1 << " with " << *cl2 << " got ";
-            if (res == NULL) 
-              cout << "tautology" << endl; 
+            if (res == NULL)
+              cout << "tautology" << endl;
             else if (sv.res_lim() >= 0 && res->asize() > (unsigned)sv.res_lim())
               cout << "too long" << endl;
             else
@@ -723,7 +723,7 @@ namespace {
               ++a_clauses;
               NDBG(cout << " new unit or empty, added; " << flush;);
               if (res->asize() == 0) {
-                // empty clause 
+                // empty clause
                 NDBG(cout << " conflict, terminating." << endl;);
                 sv.set_conflict_clause(res);
                 sv.trace().push_back(v);
@@ -735,7 +735,7 @@ namespace {
               // insert locally
               local_dd.insert(make_pair(res, SimplifyVE::ResData(cl1, cl2, v, 1)));
               NDBG(cout << " new, remembered" << endl;);
-              // check for early termination: 
+              // check for early termination:
               if (local_dd.size() >= (unsigned)gain) {
                 NDBG(cout << "-eliminate_var(): too many resolvents, aborted." << endl;);
                 return false;
@@ -747,14 +747,14 @@ namespace {
       }
       ++pcl1;
     }
-    NDBG(cout << "=eliminate_var(): got up to " << local_dd.size() 
+    NDBG(cout << "=eliminate_var(): got up to " << local_dd.size()
         << " new resolvents" << endl;);
     // now, let's make a list of original clauses that are subsumed by the new
     // resolvents -- note that there's a chance we will have dublicates, and
     // so our final count will be too optimistic, but we'll just have to live
     // with it
     BasicClauseVector p_subs;     // potentially subsumed clauses
-    for (SimplifyVE::DerivData::iterator iter = local_dd.begin(); 
+    for (SimplifyVE::DerivData::iterator iter = local_dd.begin();
          iter != local_dd.end(); ++iter)
       calculate_subsumed(sv, iter->first, p_subs);
     NDBG(cout << "=eliminate_var(): detected up to " << p_subs.size()
@@ -763,7 +763,7 @@ namespace {
     gain = (int)local_dd.size() - gain - p_subs.size();
     NDBG(cout << "=eliminate_var(): estimated gain is " << gain << endl;);
     if (gain > 0) {
-      NDBG(cout << "-eliminate_var(): the gain is positive, not eliminated." 
+      NDBG(cout << "-eliminate_var(): the gain is positive, not eliminated."
           << endl;);
       return false;
     }
@@ -772,12 +772,12 @@ namespace {
     remove_all(sv, v);
     ++r_vars;
     NDBG(cout << "=eliminate_var(): adding resolvents for real" << endl;);
-    for (SimplifyVE::DerivData::iterator iter = local_dd.begin(); 
+    for (SimplifyVE::DerivData::iterator iter = local_dd.begin();
          iter != local_dd.end(); ++iter) {
       BasicClause* cl = iter->first;
       SimplifyVE::ResData& rd = iter->second;
       NDBG(cout << "  trying " << *cl << " ... ";);
-      // check if the clause is already in the set -- if not, add it and its 
+      // check if the clause is already in the set -- if not, add it and its
       // derivation data; if yes, then it must be in the derivation data with the
       // same variable v -- then, simply increment the counter
       BasicClause* old_cl = gs.lookup_clause(cl);
@@ -803,13 +803,13 @@ namespace {
       }
     }
     NDBG(cout << "=eliminate_var(): removing subsumed clauses" << endl;);
-    for (BasicClauseVector::iterator pcl = p_subs.begin(); pcl != p_subs.end(); 
+    for (BasicClauseVector::iterator pcl = p_subs.begin(); pcl != p_subs.end();
          ++pcl) {
       if (!(*pcl)->removed())
         remove_clause(sv, *pcl);
     }
     sv.trace().push_back(v);
-    NDBG(cout << "-elinimate_var(): done with " << v 
+    NDBG(cout << "-elinimate_var(): done with " << v
         << ", a_clauses = " << a_clauses << ", r_clauses = " << r_clauses << endl;);
     return true;
   }
@@ -827,7 +827,7 @@ namespace {
    *     }
    *   }
    * }
-   * @post c' \in gs' & clash(c, c') = {l} -> !subsumes(c R c', c')  
+   * @post c' \in gs' & clash(c, c') = {l} -> !subsumes(c R c', c')
    */
   void self_subsume(SimplifyVE& sv, const BasicClause* c, ClauseQueue& cqueue)
   {
@@ -837,8 +837,8 @@ namespace {
     BasicClause* cc = const_cast<BasicClause*> (c); // to flip literals
     for (Literator pl = cc->abegin(); pl != cc->aend(); ++pl) {
       NDBG(cout << "  checking literal " << *pl << endl;);
-      *pl = -*pl; // flip      
-      cc->update_abstr(); 
+      *pl = -*pl; // flip
+      cc->update_abstr();
       BasicClauseList& cls = gs.occs_list().clauses(*pl);
       for (BasicClauseList::iterator pcl = cls.begin(); pcl != cls.end(); ) {
         if ((*pcl)->removed()) {
@@ -854,8 +854,8 @@ namespace {
               lits.push_back(*plit);
           BasicClause* res = gs.make_clause(lits);
           NDBG(cout << ", made " << *res << flush;);
-          // check if the clause is already in the set -- if not, add it and its 
-          // derivation data; otherwise ignore  
+          // check if the clause is already in the set -- if not, add it and its
+          // derivation data; otherwise ignore
           BasicClause* old_res = gs.lookup_clause(res);
           if (old_res == NULL) {
             assert(!sv.group_mode());
@@ -882,7 +882,7 @@ namespace {
         }
       }
       *pl = -*pl; // restore
-      cc->update_abstr(); 
+      cc->update_abstr();
     }
     NDBG(cout << "-self_subsume(): done" << endl;);
   }
