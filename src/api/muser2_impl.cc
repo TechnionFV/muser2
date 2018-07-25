@@ -154,4 +154,19 @@ muser2::gid muser2::muser2_impl::add_clause(const int* first, const int* last, m
   return (muser2::gid)cl->get_grp_id();
 }
 
+muser2::gid muser2::muser2_impl::add_clause(std::vector<LINT>& lits, muser2::gid gid)
+{
+    BasicClause* cl = _pgset->create_clause(lits);
+    //INIT ALEX
+    cl_savec.push_back(cl);
+    //END ALEX
+    if (cl->get_grp_id() == gid_Undef) {
+        if (gid == gid_Undef) { gid = _pgset->max_gid() + 1; }
+        _pgset->set_cl_grp_id(cl, (GID)gid);
+        DBG(cout << "= muser2::add_clause: new clause ";);
+    } DBG(else { cout << "= muser2::add_clause: existing clause "; });
+    // TODO: if the clause already exists, it needs to be deleted !
+    DBG(cout << "{" << cl->get_grp_id() << "} " << *cl << endl;);
+    return (muser2::gid)cl->get_grp_id();
+}
 /*----------------------------------------------------------------------------*/

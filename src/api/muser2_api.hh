@@ -23,7 +23,9 @@ public:         // Types
   typedef int lit;
   /** Group IDs are unsigned integers; gid_Undef is the special, undefined group 
    * ID. */
-  typedef unsigned gid;
+  typedef uint32_t gid;
+
+  typedef int32_t LINT;
   const static gid gid_Undef = (gid)-1;
 
 public:         // Lifecycle
@@ -98,7 +100,7 @@ public:         // Addition of clauses and groups
    * @return group-ID of the added (or existing) clause.
    */
   gid add_clause(const lit* first, const lit* last, gid gid);
-
+  gid add_clause(std::vector<LINT>& lit, gid gid);
   // TODO: add "normal" C++ versions of add_clause()
 
 public:         // Functionality

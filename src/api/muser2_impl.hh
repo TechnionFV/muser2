@@ -114,6 +114,7 @@ public:         // Addition of clauses and groups
    * @return group-ID of the added (or existing) clause.
    */
   gid add_clause(const int* first, const int* last, gid gid);
+  gid add_clause(std::vector<LINT>& lits, gid gid);
 
 private:        // Main datastructures ...
 

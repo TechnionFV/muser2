@@ -84,6 +84,11 @@ muser2::gid muser2::add_clause(const muser2::lit* first,
 {
   return (muser2::gid)_pimpl->add_clause(first, last, gid);
 }
+/** Add a clause to the group-set. Re-implementing for clean integration with Avy  */
+muser2::gid muser2::add_clause(std::vector<LINT>& lits,muser2::gid gid)
+{
+  return (muser2::gid)_pimpl->add_clause(lits, gid);
+}
 
 /** Tests the current group-set for satisfiability. */
 int muser2::test_sat(void) { return _pimpl->test_sat(); }
