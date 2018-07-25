@@ -156,16 +156,13 @@ muser2::gid muser2::muser2_impl::add_clause(const int* first, const int* last, m
 
 muser2::gid muser2::muser2_impl::add_clause(std::vector<LINT>& lits, muser2::gid gid)
 {
-    BasicClause* cl = _pgset->create_clause(lits);
-    //INIT ALEX
-    cl_savec.push_back(cl);
-    //END ALEX
+    BasicClause* cl = _pgset->create_clause(lits); //if the clause already exists, the old clause is returned. In this case, memory is allocated for the new clause but not deallocated.
     if (cl->get_grp_id() == gid_Undef) {
-        if (gid == gid_Undef) { gid = _pgset->max_gid() + 1; }
-        _pgset->set_cl_grp_id(cl, (GID)gid);
-        DBG(cout << "= muser2::add_clause: new clause ";);
-    } DBG(else { cout << "= muser2::add_clause: existing clause "; });
-    // TODO: if the clause already exists, it needs to be deleted !
+      if (gid == gid_Undef) { gid = _pgset->max_gid() + 1; }
+      _pgset->set_cl_grp_id(cl, (GID) gid);
+      cl_savec.push_back(cl); //add the clause to cl_savec only if it is new. This is to fix the double deletion issue : if the same clause is added twice, the reset_all method tries to delete it twice.
+      DBG(cout << "= muser2::add_clause: new clause ";);
+    }DBG(else { cout << "= muser2::add_clause: existing clause "; });
     DBG(cout << "{" << cl->get_grp_id() << "} " << *cl << endl;);
     return (muser2::gid)cl->get_grp_id();
 }
