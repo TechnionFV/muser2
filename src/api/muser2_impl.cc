@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define DBG(x) x
+#define DBG(x)
 
 namespace {     // local declarations ...
 

@@ -250,9 +250,9 @@ public:
   inline void insert(T v) {
     unsigned int sz = this->size();
     if (sz >= 2*this->bucket_count()) {  // Optimizing # resizes
-      //DBG(
-      cout<<"Resizing a ""T"" set "<<endl;
-      //);
+//      DBG(
+//      cout<<"Resizing a ""T"" set "<<endl;
+//      );
       this->rehash(8*(sz+((sz==0)?1:0))+1); }
     hash_set<T,H,E>::insert(v); }
   void dump(ostream& outs=std::cout) {
@@ -283,9 +283,9 @@ public:
   inline void insert(pair<TK,TV> v) {
     unsigned int sz = this->size();
     if (sz >= 2*this->bucket_count()) {  // Optimizing # resizes
-      //DBG(
-      cout<<"Resizing a ""TK"" map "<<endl;
-      //);
+//      DBG(
+//      cout<<"Resizing a ""TK"" map "<<endl;
+//      );
       this->resize(8*(sz+((sz==0)?1:0))+1); }
     hash_multimap<TK,TV,H,E>::insert(v); }
   inline void insert(TK v1, TV v2) {
