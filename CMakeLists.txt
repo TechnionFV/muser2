@@ -17,9 +17,10 @@ get_git_head_revision (GIT_REFSPEC GIT_SHA1)
 message (STATUS "sha is ${GIT_SHA1}")
 add_definitions(-DCOMMITID="${GIT_SHA1}")
 
+include ("cmake/PackageOptions.cmake")
+
 string(TIMESTAMP BUILDDATE "%Y-%m-%d %H:%M")
 add_definitions(-DBUILDDATE="${BUILDDATE}")
-add_definitions(-D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS)
 
 add_definitions(-DTRACEVERB=0)
 
@@ -48,6 +49,7 @@ mark_as_advanced(RT_LIB)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/include
+  ${MUSER2_INCLUDE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}/include
   )
 

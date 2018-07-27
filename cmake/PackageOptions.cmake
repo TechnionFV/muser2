@@ -1,0 +1,3 @@
+set(MUSER2_LIBRARY muser2_api)
+set(MUSER2_INCLUDE_DIR ${Muser2_SOURCE_DIR}/src)
+add_definitions(-D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS)
