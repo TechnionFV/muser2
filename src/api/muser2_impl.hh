@@ -89,6 +89,22 @@ public:         // Configuration
    */
   void set_order(unsigned order) { config.set_order_mode(_order = order); }
 
+  /** Toggle insertion mode
+   */
+  void ins_mode(bool value) { value?config.set_ins_mode():config.unset_ins_mode(); }
+
+  /** Turn off model rotation
+   */
+  void unset_mr_mode() {config.unset_model_rotate_mode(); }
+
+   /** Toggle removal of redundant clauses
+    */
+   void rm_rr_mode(bool value) { value?config.set_rm_red_mode():config.unset_rm_red_mode(); }
+
+  /** Toggle addaptive removal of redundant clauses
+   */
+  void rm_rra_mode(bool value) { value?config.set_rm_reda_mode():config.unset_rm_reda_mode(); }
+
   /** When true, the groups deemed to be necessary (i.e. included in the
    * computed MUS) are added permanently to the group-set; i.e. they become
    * part of group 0. Default: true. */

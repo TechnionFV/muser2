@@ -62,6 +62,30 @@ void muser2::set_order(unsigned order)
   _pimpl->set_order(order);
 }
 
+/** Toggle insertion mode */
+void muser2::ins_mode(bool value)
+{
+  _pimpl->ins_mode(value);
+}
+
+/** Turn off model rotation */
+void muser2::unset_mr_mode()
+{
+  _pimpl->unset_mr_mode();
+}
+
+/** Toggle redundancy removal*/
+void muser2::rm_rr_mode(bool value)
+{
+  _pimpl->rm_rr_mode(value);
+}
+
+/** Toggle adaptive redundancy removal*/
+void muser2::rm_rra_mode(bool value)
+{
+  _pimpl->rm_rra_mode(value);
+}
+
 /** When true, the groups deemed to be necessary (i.e. included in the
  * computed MUS) are added permanently to the group-set; i.e. they become
  * part of group 0. Default: true. */

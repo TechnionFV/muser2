@@ -76,6 +76,27 @@ public:         // Configuration
    */
   void set_order(unsigned order);
 
+  /**
+   * Toggle insertion mode
+   * when order=0, muser inserts the group with highest number first
+   */
+  void ins_mode(bool value);
+
+  /**
+   * Turn off model rotation
+   */
+  void unset_mr_mode();
+
+  /**
+   * Toggle model rotation
+   */
+  void rm_rr_mode(bool value);
+
+  /**
+   * Toggle model rotation
+   */
+  void rm_rra_mode(bool value);
+
   /** When true, the groups deemed to be necessary (i.e. included in the
    * computed MUS) are added permanently to the group-set; i.e. they become
    * part of group 0. Default: true. */
