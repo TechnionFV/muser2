@@ -11,6 +11,7 @@
 \*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <cstdint> 
 
 /** This is the API for MUS/GMUS extraction.
  */
