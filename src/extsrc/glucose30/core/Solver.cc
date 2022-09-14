@@ -1182,16 +1182,16 @@ double Solver::progressEstimate() const
 void Solver::printIncrementalStats() {
 
   printf("c---------- Glucose Stats -------------------------\n");
-  printf("c restarts              : %lld\n", starts);
-  printf("c nb ReduceDB           : %lld\n", nbReduceDB);
-  printf("c nb removed Clauses    : %lld\n",nbRemovedClauses);
-  printf("c nb learnts DL2        : %lld\n", nbDL2);
-  printf("c nb learnts size 2     : %lld\n", nbBin);
-  printf("c nb learnts size 1     : %lld\n", nbUn);
+  printf("c restarts              : %" PRIu64" \n", starts);
+  printf("c nb ReduceDB           : %" PRIu64" \n", nbReduceDB);
+  printf("c nb removed Clauses    : %" PRIu64" \n",nbRemovedClauses);
+  printf("c nb learnts DL2        : %" PRIu64" \n", nbDL2);
+  printf("c nb learnts size 2     : %" PRIu64" \n", nbBin);
+  printf("c nb learnts size 1     : %" PRIu64" \n", nbUn);
 
-  printf("c conflicts             : %lld \n",conflicts);
-  printf("c decisions             : %lld\n",decisions);
-  printf("c propagations          : %lld\n",propagations);
+  printf("c conflicts             : %" PRIu64"  \n",conflicts);
+  printf("c decisions             : %" PRIu64" \n",decisions);
+  printf("c propagations          : %" PRIu64" \n",propagations);
 
   printf("c SAT Calls             : %d in %g seconds\n",nbSatCalls,totalTime4Sat);
   printf("c UNSAT Calls           : %d in %g seconds\n",nbUnsatCalls,totalTime4Unsat);
