@@ -35,10 +35,12 @@ IF (Boost_FOUND)
   include_directories (${Boost_INCLUDE_DIRS})
 endif ()
 
-find_package(ZLIB REQUIRED)
-
-# prefer linking with static libraries
+# prefer linking with static libraries (must precede find_package(ZLIB):
+# a shared libz here leaks into every consumer's link line via muser2_api
+# and breaks -static builds)
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ${CMAKE_FIND_LIBRARY_SUFFIXES})
+
+find_package(ZLIB REQUIRED)
 
 # check for rt lib. Not needed on OSX.
 find_library(RT_LIB NAMES rt)

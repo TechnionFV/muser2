@@ -15,14 +15,14 @@
 #ifndef _FUNCTORS_H
 #define _FUNCTORS_H 1
 
-template<class T> struct defprint : public __unary_function<T, void>
+template<class T> struct defprint
 {
   defprint(ostream& out) : os(out) {}
   void operator() (T x) { os << x << ' '; }
   ostream& os;
 };
 
-template<class T> struct ptrprint : public __unary_function<T, void>
+template<class T> struct ptrprint
 {
   ptrprint(ostream& out) : os(out) {}
   void operator() (T x) { os << *x << endl; }

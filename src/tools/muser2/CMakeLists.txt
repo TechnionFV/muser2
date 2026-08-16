@@ -8,5 +8,5 @@ target_link_libraries (muser2
   minisat_gh
   minisat22
   glucose30
-  ${ZLIB_LIBRARY})
+  ${ZLIB_LIBRARIES})
 
